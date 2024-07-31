@@ -23,10 +23,10 @@
                     <a class="nav-link" href="films.php">Films</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="séries.php">Séries</a>
+                    <a class="nav-link" href="series.php">Séries</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Ma Liste.php">Ma Liste</a>
+                    <a class="nav-link" href="maliste.php">Ma Liste</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href= "profil.php">Profil</a>
