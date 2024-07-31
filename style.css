@@ -33,6 +33,9 @@ body {
     font-size: 4em;
     margin-bottom: 20px; /* Ajout pour barre de recherche */
 }
+.mb-5 {
+    color: #111;
+}
 .footer {
     background-color: #222;
     padding: 20px 0;
