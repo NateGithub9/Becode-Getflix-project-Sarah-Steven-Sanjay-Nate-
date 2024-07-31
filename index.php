@@ -124,7 +124,6 @@
             </div>
         </div>
     </div>
-
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
         <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
