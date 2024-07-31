@@ -56,6 +56,7 @@
             <label for="password">Mot de passe:</label>
             <input type="text" id="password" name="password" required>
 
+            <input type="submit" value="Créer">
 
         </form>
 
