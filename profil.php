@@ -35,7 +35,7 @@
         </div>
     </nav>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Login</h2><br>
         <form action="/login" method="post">
             <label for="email">Adresse e-mail:</label>
             <input type="text" id="email" name="email" required>
@@ -47,13 +47,13 @@
         </form>
     </div>  
     <div class="new-account-container">
-        <h2>Nouveau compte</h2>
+        <h2>Nouveau compte</h2><br>
         <form action="/login" method="post">
 
-            <label for="email">Adresse e-mail:</label><br>
+            <label for="email">Adresse e-mail:</label>
             <input type="text" id="new-mail" name="email" required>
 
-            <label for="password">Mot de passe:</label><br>
+            <label for="password">Mot de passe:</label>
             <input type="text" id="password" name="password" required>
 
             <input type="submit" value="Créer">
