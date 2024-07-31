@@ -33,7 +33,7 @@ body {
     font-size: 4em;
     margin-bottom: 20px; /* Ajout pour barre de recherche */
 }
-.mb-5 {
+.card-body p-5 text-center {
     color: #111;
 }
 .footer {
