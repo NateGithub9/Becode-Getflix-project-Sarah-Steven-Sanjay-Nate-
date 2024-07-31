@@ -32,10 +32,12 @@ body {
 }
 
 .login-container {
+    display: flex;
     justify-content: center;
 }
 
 .new-account-container {
+    display: flex;
     justify-content: center;
 }
 
