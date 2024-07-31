@@ -1,3 +1,5 @@
+Rajouter commentaires + visualisation commentaires passés 
+Visualisation détails du contenu sélectionné
 <!DOCTYPE html>
 <html lang="en">
 <head>
