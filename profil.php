@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">GetFlix</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,10 +23,10 @@
                     <a class="nav-link" href="films.php">Films</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="séries.php">Séries</a>
+                    <a class="nav-link" href="series.php">Séries</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Ma Liste.php">Ma Liste</a>
+                    <a class="nav-link" href="maliste.php">Ma Liste</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href= "profil.php">Profil</a>
@@ -34,6 +34,33 @@
             </ul>
         </div>
     </nav>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/login" method="post">
+            <label for="email">Adresse e-mail:</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Login">
+        </form>
+    </div>  
+    <div class="new-account-container">
+        <h2>Nouveau compte</h2>
+        <form action="/login" method="post">
+
+            <label for="email">Adresse e-mail:</label>
+            <input type="text" id="new-mail" name="email" required>
+
+            <label for="password">Mot de passe:</label>
+            <input type="text" id="password" name="password" required>
+
+
+        </form>
+
+
+    </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
