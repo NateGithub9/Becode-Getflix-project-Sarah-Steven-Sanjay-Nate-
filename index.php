@@ -19,7 +19,7 @@
                     <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\films.php">Films</a>
+                    <a class="nav-link" href="films.php">Films</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\séries.php">Séries</a>
