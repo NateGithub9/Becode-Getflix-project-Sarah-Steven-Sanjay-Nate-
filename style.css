@@ -31,6 +31,14 @@ body {
     font-size: 4em;
 }
 
+.login-container {
+    justify-content: center;
+}
+
+.new-account-container {
+    justify-content: center;
+}
+
 .footer {
     background-color: #222;
     padding: 20px 0;
