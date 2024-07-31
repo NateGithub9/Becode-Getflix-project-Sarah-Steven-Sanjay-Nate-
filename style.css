@@ -33,11 +33,8 @@ body {
     font-size: 4em;
     margin-bottom: 20px; /* Ajout pour barre de recherche */
 }
-.mb-5 {
-    color: #111;
-}
-.form-outline mb-4 {
-    color: #111;
+.vh-100 {
+    color: gray;
 }
 .footer {
     background-color: #222;
