@@ -35,7 +35,7 @@
         </div>
     </nav>
     <div class="login-container">
-        <h2>Login</h2><br>
+        <h2>Login</h2>
         <form action="/login" method="post">
             <label for="email">Adresse e-mail:</label>
             <input type="text" id="email" name="email" required>
@@ -47,7 +47,7 @@
         </form>
     </div>  
     <div class="new-account-container">
-        <h2>Nouveau compte</h2><br>
+        <h2>Nouveau compte</h2>
         <form action="/login" method="post">
 
             <label for="email">Adresse e-mail:</label>
