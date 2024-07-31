@@ -20,16 +20,16 @@
                     <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a src="Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\films.php" class="nav-link" href="#">Films</a>
+                    <a class="nav-link" href="Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\films.php">Films</a>
                 </li>
                 <li class="nav-item">
-                    <a src="Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\séries.php" class="nav-link" href="#">Séries</a>
+                    <a class="nav-link" href="Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\séries.php">Séries</a>
                 </li>
                 <li class="nav-item">
-                    <a src="Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\Ma Liste.php" class="nav-link" href="#">Ma Liste</a>
+                    <a class="nav-link" href="Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\Ma Liste.php">Ma Liste</a>
                 </li>
                 <li class="nav-item">
-                    <a src="Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\profil.php" class="nav-link" href="#">Profil</a>
+                    <a class="nav-link" href= "Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-\profil.php">Profil</a>
                 </li>
             </ul>
         </div>
