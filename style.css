@@ -33,7 +33,10 @@ body {
     font-size: 4em;
     margin-bottom: 20px; /* Ajout pour barre de recherche */
 }
-.card-body p-5 text-center {
+.mb-5 {
+    color: #111;
+}
+.form-outline mb-4 {
     color: #111;
 }
 .footer {
