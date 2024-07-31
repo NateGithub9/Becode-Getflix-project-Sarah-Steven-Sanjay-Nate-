@@ -77,7 +77,7 @@
         </div>
 
         <h2>Populaires</h2>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-3">
                 <div class="thumbnail">
                     <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
@@ -97,11 +97,13 @@
                 <div class="thumbnail">
                     <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
                 </div>
-            </div>
-        </div>
+            </div> -->
+            <?php 
+            include_once('./popularfilms.php');
+            ?>
 
         <h2 class="mt-5">Nouveaux</h2>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-3">
                 <div class="thumbnail">
                     <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
@@ -122,7 +124,10 @@
                     <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
                 </div>
             </div>
-        </div>
+        </div> -->
+        <?php 
+        include_once('./latestfilms.php');
+        ?>
     </div>
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
