@@ -39,6 +39,25 @@ Visualisation détails du contenu sélectionné
             </ul>
         </div>
     </nav>
+    <section class="details">
+        <div class="imgfilm">
+
+        </div>
+        <div class="detailfilm">
+
+        </div>
+        <div class="ajoutcom">
+            <h3>Laisser un commentaire:</h3>
+                <form action="/submit-comment" method="POST">
+                    <label for="comment">Comment:</label><br>
+                    <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br><br>
+                <input type="submit" value="Submit">
+    </form>
+        </div>
+        <div class="com">
+
+        </div>
+    </section>
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
         <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
