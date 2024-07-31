@@ -22,13 +22,16 @@ body {
     margin-bottom: 30px;
     position: relative;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-end;
     align-items: center;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    padding-bottom: 20px; /* Ajout pour barre de recherche */
 }
 .featured h1 {
     font-size: 4em;
+    margin-bottom: 20px; /* Ajout pour barre de recherche */
 }
 .footer {
     background-color: #222;
