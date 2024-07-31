@@ -35,8 +35,41 @@
     </nav>
 
     <div class="container">
-        <div class="featured">
-            <h1>Sélectionnés pour vous</h1>
+        <div id="featuredCarousel" class="carousel slide featured" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="First slide">
+                    <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
+                        <h1>Sélectionnés pour vous</h1>
+                        <form class="form-inline justify-content-center mt-4">
+                            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
+                            <button class="btn btn-primary" type="submit">Recherche</button>
+                        </form>
+                        
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Second slide">
+                    <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
+                        <h1>Sélectionnés pour vous</h1>
+
+                        <!-- Ajout de la Barre De Recherche -->
+                        <form class="form-inline justify-content-center mt-4">
+                            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
+                            <button class="btn btn-primary" type="submit">Recherche</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Ajout du Carrousel -->
+            <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
 
         <h2>Populaires</h2>
