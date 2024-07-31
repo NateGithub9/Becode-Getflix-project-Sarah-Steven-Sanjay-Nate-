@@ -33,6 +33,9 @@ body {
     font-size: 4em;
     margin-bottom: 20px; /* Ajout pour barre de recherche */
 }
+.vh-100 {
+    color: black;
+}
 .footer {
     background-color: #222;
     padding: 20px 0;
