@@ -37,13 +37,14 @@ $key = array_keys(array_filter($results, function ($item) {
 }))[0] ?? null;
 if ($key !== null) {
     $teaser = $results[$key];
+    $teaserKey = htmlspecialchars($teaser['key'], ENT_QUOTES, 'UTF-8');
+$videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
 } else {
     // handle the case where no matching element was found
     // for example, you could throw an exception or log an error
-    $teaser = "No trailer found";
+    $teaser = "Pas de trailer trouvé pour ce film.";
 }
-$teaserKey = htmlspecialchars($teaser['key'], ENT_QUOTES, 'UTF-8');
-$videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
+
 ?>
 
 <!DOCTYPE html>
@@ -129,6 +130,18 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                                 echo $result['description'];
                             ?>
                             </p>
+                        </div>
+
+                        <div class="trailer">
+                            <h5>Trailer:</h5>
+                            <?php
+                            if ($teaser === "Pas de trailer trouvé pour ce film.") {
+                                echo $teaser;
+                            }
+                            else {
+                                echo '<iframe src="https://www.youtube.com/embed/' . $teaserKey . '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';    
+                            }  
+                            ?>
                         </div>
                     </div>
                     <!-- AJOUT LISTE/B.A -->
