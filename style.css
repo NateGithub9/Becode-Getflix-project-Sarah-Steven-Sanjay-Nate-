@@ -43,3 +43,13 @@ body {
     text-align: center;
     color:#fff;
 }
+
+.listefilms {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card-title {
+    color:black;
+}

@@ -39,7 +39,9 @@
     </nav>
     <div class="listefilms">
         <h1>Liste des films</h1>
-        
+        <?php
+        include_once('./getallfilms.php');
+        ?>   
     </div>
     <div class="search">
         <form class="form-inline justify-content-center mt-4">
