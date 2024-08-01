@@ -39,7 +39,9 @@
     </nav>
     <div class="listeseries">
         <h1>Liste des séries</h1>
-        
+        <?php
+        include_once('./getallseries.php');
+        ?>
     </div>
     <div class="search">
         <form class="form-inline justify-content-center mt-4">
