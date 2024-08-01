@@ -1,5 +1,3 @@
-Rajouter commentaires + visualisation commentaires passés
-Visualisation détails du contenu sélectionné
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,9 +41,18 @@ Visualisation détails du contenu sélectionné
         <div class="imgfilm">
 
         </div>
-        <div class="detailfilm">
+        <div class="filmtitle">
+            <h2>
 
+            </h2>
         </div>
+        <div class="detailfilm">
+            <p>
+
+            </p>
+        </div>
+
+        
         <div class="ajoutcom">
             <h3>Laisser un commentaire:</h3>
                 <form action="/submit-comment" method="POST">
