@@ -14,7 +14,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <img src="images/logo.png" alt="logo" title="logo" width="180" height="39">
+        <a href="index.php"><img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -83,7 +83,7 @@
                     <h3>Laisser un commentaire:</h3>
                         <form action="/submit-comment" method="POST">
                             <label for="comment"></label><br>
-                            <textarea id="comment" name="comment" rows="4" cols="100" required></textarea><br><br>
+                            <textarea id="comment" name="comment" rows="4" cols="130" required></textarea><br><br>
                             <input type="submit" value="Commenter">
                         </form>
                     <br>
