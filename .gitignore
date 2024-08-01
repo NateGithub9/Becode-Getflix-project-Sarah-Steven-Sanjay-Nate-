@@ -2,3 +2,4 @@
 configdb.php
 docker-compose.yaml
 accestoken.php
+.env
