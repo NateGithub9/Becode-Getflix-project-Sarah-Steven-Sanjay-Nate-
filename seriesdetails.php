@@ -61,6 +61,11 @@
 
                             </h5>
                         </div>
+                        <div class="language">
+                            <h5>Langue:
+
+                            </h5>
+                        </div>
                         <div class="description">
                             <p>
 
