@@ -51,13 +51,18 @@
                 <div class="section-details">
                     <div class="contenu-details">
                         <div class="seriestitle">
-                            <h2>Titre SERIE
+                            <h2>Titre:
                                 
                             </h2>
                         </div>
                 
                         <div class="year">
                             <h5>Année: 
+
+                            </h5>
+                        </div>
+                        <div class="language">
+                            <h5>Langue:
 
                             </h5>
                         </div>
