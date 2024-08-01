@@ -51,7 +51,7 @@
                 <div class="section-details">
                     <div class="contenu-details">
                         <div class="seriestitle">
-                            <h2>Titre SERIE
+                            <h2>Titre:
                                 
                             </h2>
                         </div>
