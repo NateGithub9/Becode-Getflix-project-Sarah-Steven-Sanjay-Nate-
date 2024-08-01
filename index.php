@@ -13,7 +13,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <img src="images/logo.png" alt="logo" title="logo" width="180" height="39">
+        <a href="index.php"> <img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,6 +34,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="filmsdetails.php">Détails</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -45,10 +48,6 @@
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="First slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
                         <h1>Sélectionnés pour vous</h1>
-                        <form class="form-inline justify-content-center mt-4">
-                            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
-                            <button class="btn btn-primary" type="submit">Recherche</button>
-                        </form>
 
                     </div>
                 </div>
@@ -56,12 +55,7 @@
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Second slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
                         <h1>Sélectionnés pour vous</h1>
-
-                        <!-- Ajout de la Barre De Recherche -->
-                        <form class="form-inline justify-content-center mt-4">
-                            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
-                            <button class="btn btn-primary" type="submit">Recherche</button>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
@@ -75,59 +69,23 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-
+        <div class="searchbar">
+            <form class="form-inline justify-content-center mt-4">
+                <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
+                <button class="btn btn-primary" type="submit">Recherche</button>
+            </form>
+        </div>
         <h2>Populaires</h2>
-        <!-- <div class="row">
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
-                </div>
-            </div> -->
+
             <?php 
-            include_once('./popularfilms.php');
+                include_once('./popularfilms.php');
             ?>
 
         <h2 class="mt-5">Nouveaux</h2>
-        <!-- <div class="row">
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <img src="https://via.placeholder.com/300x450" alt="Movie/Series Title">
-                </div>
-            </div>
-        </div> -->
-        <?php 
-        include_once('./latestfilms.php');
-        ?>
+
+            <?php 
+                include_once('./latestfilms.php');
+            ?>
     </div>
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
