@@ -53,7 +53,6 @@
                     <div class="contenu-details">
                         <div class="filmtitle">
                             <h2>Titre FILM
-                                
                             </h2>
                         </div>
                 
