@@ -7,6 +7,7 @@
     <title>Fiche films/série</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="details.css">
 </head>
 
 <body>
@@ -51,7 +52,7 @@
                 <div class="section-details">
                     <div class="contenu-details">
                         <div class="filmtitle">
-                            <h2>Titre FILM/SERIE
+                            <h2>Titre FILM
                                 
                             </h2>
                         </div>
