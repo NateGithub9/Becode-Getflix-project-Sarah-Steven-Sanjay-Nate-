@@ -13,7 +13,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <img src="images/logo.png" alt="logo" title="logo" width="180" height="39">
+        <a href="index.php"><img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,12 +37,22 @@
             </ul>
         </div>
     </nav>
-    <div class="search">
-    
-    </div>
     <div class="listeseries">
-        
+        <h1>Liste des séries</h1>
+        <?php
+        include_once('./getallseries.php');
+        ?>
     </div>
+    <div class="search">
+        <form class="form-inline justify-content-center mt-4">
+            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
+            <button class="btn btn-primary" type="submit">Recherche</button>
+        </form>
+    </div>
+    <div class="filters">
+        <h2>Filtres</h2>
+    </div>
+
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
         <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>

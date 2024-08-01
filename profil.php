@@ -19,7 +19,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <img src="images/logo.png" alt="logo" title="logo" width="180" height="39">
+        <a href="index.php"><img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -43,33 +43,6 @@
             </ul>
         </div>
     </nav>
-    <!--<div class="login-container">
-        <h2>Login</h2>
-        <form action="/login" method="post">
-            <label for="email">Adresse e-mail:</label>
-            <input type="text" id="email" name="email" required>
-
-            <label for="password">Mot de passe:</label>
-            <input type="password" id="password" name="password" required>
-
-            <input type="submit" value="Login">
-        </form>
-    </div>
-    <div class="new-account-container">
-        <h2>Nouveau compte</h2>
-        <form action="/login" method="post">
-
-            <label for="email">Adresse e-mail:</label>
-            <input type="text" id="new-mail" name="email" required>
-
-            <label for="password">Mot de passe:</label>
-            <input type="text" id="password" name="password" required>
-
-            <input type="submit" value="Créer">
-
-        </form>
-
-    </div>-->
     <section class="vh-100" style="background-color: #111;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -89,7 +62,6 @@
                                 <label class="form-label" for="typePasswordX-2">Mot de passe</label>
                             </div>
 
-                            <!-- Checkbox -->
                             <div class="form-check d-flex justify-content-start mb-4">
                                 <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
                                 <label class="form-check-label" for="form1Example3"> Se rappeler du mot de passe </label>
