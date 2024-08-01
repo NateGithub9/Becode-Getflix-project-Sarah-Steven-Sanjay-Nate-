@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Website</title>
+    <title>Fiche films/série</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
         <img src="images/logo.png" alt="logo" title="logo" width="180" height="39">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,45 +37,68 @@
             </ul>
         </div>
     </nav>
-    <section class="details">
-        <div class="imgfilm">
 
-        </div>
-        <div class="filmtitle">
-            <h2>
+    <div class="container mt-4">
+        <div class="row">
+            <!-- IMAGE FILM/SERIE -->
+            <div class="col-md-4">
+                <div class="image">
+                    <img src="https://via.placeholder.com/300x450" alt="Movie/Series Image" class="img-fluid">
+                </div>
+            </div>
+            <!-- FICHE DETAILS -->
+            <div class="col-md-8">
+                <div class="section-details">
+                    <div class="contenu-details">
+                        <div class="filmtitle">
+                            <h2>Titre FILM/SERIE
+                                
+                            </h2>
+                        </div>
+                
+                        <div class="year">
+                            <h5>Année: 
 
-            </h2>
-        </div>
-        <div class="detailfilm">
-            <p>
+                            </h5>
+                        </div>
+                        <div class="description">
+                            <p>
 
-            </p>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- AJOUT LISTE/B.A -->
+                    <div class="boutons">
+                        <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItem()">Ajouter à ma liste</button>
+                        <a href="trailer.php" class="btn btn-secondary">Voir la bande-annonce</a>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- COMMENTAIRES -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="section-commentaires">
+                    <h3>Laisser un commentaire:</h3>
+                        <form action="/submit-comment" method="POST">
+                            <label for="comment"></label><br>
+                            <textarea id="comment" name="comment" rows="4" cols="100" required></textarea><br><br>
+                            <input type="submit" value="Commenter">
+                        </form>
+                    <br>
+                    
+                    <h3>Commentaires</h3>
+                    <p>
+                        
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <div class="addtolist">
-        <button type="button" class="addtomylist" onclick="addItem()"><img class="plusbutton" alt="plus icon"> Ajouter à Ma Liste</button>
-        </div>
-        
-        <div class="ajoutcom">
-            <h3>Laisser un commentaire:</h3>
-                <form action="/submit-comment" method="POST">
-                    <label for="comment">Comment:</label><br>
-                    <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br><br>
-                <input type="submit" value="Submit">
-    </form>
-        </div>
-        <div class="com">
-
-        </div>
-    </section>
-    <footer class="footer">
-        Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
-        <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
-    </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="addtolist.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

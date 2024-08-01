@@ -37,15 +37,15 @@
             </ul>
         </div>
     </nav>
-    <div class="search">
-    
-    </div>
     <div class="maliste">
         <h1>Ma Liste</h1>
-        <ul id="myPersonalList">
-            
-        </ul>
         
+    </div>
+    <div class="search">
+        <form class="form-inline justify-content-center mt-4">
+            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
+            <button class="btn btn-primary" type="submit">Recherche</button>
+        </form>
     </div>
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
@@ -54,7 +54,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="addedtolist.js"></script>
+
 </body>
 
 </html>

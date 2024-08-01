@@ -48,10 +48,6 @@
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="First slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
                         <h1>Sélectionnés pour vous</h1>
-                        <form class="form-inline justify-content-center mt-4">
-                            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
-                            <button class="btn btn-primary" type="submit">Recherche</button>
-                        </form>
 
                     </div>
                 </div>
@@ -59,12 +55,7 @@
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Second slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
                         <h1>Sélectionnés pour vous</h1>
-
-                        <!-- Ajout de la Barre De Recherche -->
-                        <form class="form-inline justify-content-center mt-4">
-                            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
-                            <button class="btn btn-primary" type="submit">Recherche</button>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
@@ -78,7 +69,12 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-
+        <div class="searchbar">
+            <form class="form-inline justify-content-center mt-4">
+                <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
+                <button class="btn btn-primary" type="submit">Recherche</button>
+            </form>
+        </div>
         <h2>Populaires</h2>
         <!-- <div class="row">
             <div class="col-md-3">

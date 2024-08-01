@@ -37,16 +37,20 @@
             </ul>
         </div>
     </nav>
+    <div class="listefilms">
+        <h1>Liste des films</h1>
+        
+    </div>
     <div class="search">
         <form class="form-inline justify-content-center mt-4">
             <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
             <button class="btn btn-primary" type="submit">Recherche</button>
         </form>
+    </div>
+    <div class="filters">
+        <h2>Filtres</h2>
+    </div>
 
-    </div>
-    <div class="listefilms">
-        
-    </div>
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
         <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
