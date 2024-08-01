@@ -1,0 +1,35 @@
+/* Fiche détails et boutons Ajouter liste & B.A */
+.image {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.section-details {
+    background-color: #f8f9fa;
+    border-left: 2px solid #343a40;
+    padding: 20px;
+    color: #111;
+}
+
+.section-commentaires {
+    background-color: #f8f9fa;
+    border-top: 2px solid #343a40;
+    padding: 20px;
+    color: #111;
+}
+
+.section-details {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.contenu-details {
+    flex-grow: 1;
+}
+
+.boutons {
+    margin-top: auto;
+}
