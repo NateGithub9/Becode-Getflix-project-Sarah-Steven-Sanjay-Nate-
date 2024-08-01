@@ -52,6 +52,9 @@
             </p>
         </div>
 
+        <div class="addtolist">
+        <button type="button" class="addtomylist" onclick="addItem()"><img class="plusbutton" alt="plus icon"> Ajouter à Ma Liste</button>
+        </div>
         
         <div class="ajoutcom">
             <h3>Laisser un commentaire:</h3>
@@ -72,6 +75,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="addtolist.js"></script>
 </body>
 
 </html>

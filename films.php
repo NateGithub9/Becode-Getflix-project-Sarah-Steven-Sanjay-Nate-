@@ -38,7 +38,11 @@
         </div>
     </nav>
     <div class="search">
-    
+        <form class="form-inline justify-content-center mt-4">
+            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
+            <button class="btn btn-primary" type="submit">Recherche</button>
+        </form>
+
     </div>
     <div class="listefilms">
         
