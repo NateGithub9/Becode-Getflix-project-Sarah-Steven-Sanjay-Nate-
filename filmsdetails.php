@@ -57,7 +57,7 @@
                             Blabla bla bla super film.
                         </p>
                     </div>
-                    <!-- AJOUT LISTE/B.A -->
+                    <!-- AJOUT LISTE/B.ANNONCE -->
                     <div class="boutons">
                         <button type="button" class="btn btn-primary">Ajouter à ma liste</button>
                         <a href="trailer.php" class="btn btn-secondary">Voir la bande-annonce</a>
