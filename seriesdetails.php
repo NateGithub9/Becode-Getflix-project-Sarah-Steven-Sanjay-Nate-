@@ -38,15 +38,15 @@
         </div>
     </nav>
     <section class="details">
-        <div class="imgfilm">
+        <div class="imgseries">
 
         </div>
-        <div class="filmtitle">
+        <div class="seriestitle">
             <h2>
 
             </h2>
         </div>
-        <div class="detailfilm">
+        <div class="detailseries">
             <p>
 
             </p>
