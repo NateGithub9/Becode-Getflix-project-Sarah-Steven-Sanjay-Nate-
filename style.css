@@ -53,3 +53,19 @@ body {
 .card-title {
     color:black;
 }
+
+#searchResults {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+table tr {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  table tr:hover {
+    background-color: #e6e6e6;
+  }
