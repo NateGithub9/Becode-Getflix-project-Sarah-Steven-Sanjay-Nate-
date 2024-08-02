@@ -50,6 +50,18 @@ body {
     flex-wrap: wrap;
 }
 
+.listeseries {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.filters {
+    display: flex;
+
+    align-content: center;
+}
+
 .card-title {
     color:black;
 }
