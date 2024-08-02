@@ -37,18 +37,21 @@
             </ul>
         </div>
     </nav>
-    <div class="listefilms">
+    <div class="listefilms1">
         <h1>Liste des films</h1>
+    </div>
+    <div class="search">
+        <form class="form-inline justify-content-center mt-4">
+            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film">
+            <button class="btn btn-primary" type="submit">Recherche</button>
+        </form>
+    </div>
+    <div class="listefilms">
         <?php
         include_once('./getallfilms.php');
         ?>   
     </div>
-    <div class="search">
-        <form class="form-inline justify-content-center mt-4">
-            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
-            <button class="btn btn-primary" type="submit">Recherche</button>
-        </form>
-    </div>
+
     <div class="filters">
         <h2>Filtres</h2>
     </div>
