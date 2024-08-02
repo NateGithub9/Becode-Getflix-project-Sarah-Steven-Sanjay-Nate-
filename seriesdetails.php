@@ -1,50 +1,64 @@
 <?php
+// Inclusion du fichier de configuration de la base de données et de l'accès au token
 include_once('./configdb.php');
 include_once('./accestoken.php');
-// Récupérer l'id du film à partir de l'URL
+
+// Récupération de l'id de la série à partir de l'URL
 $idSerie = $_GET['id'] ?? null;
-// Récupérer les informations du film à partir de la base de données
+
+// Requête SQL pour récupérer les informations de la série à partir de la base de données
 $stmt = $db->prepare('SELECT * FROM series WHERE id = :id');
 $stmt->execute(['id' => $idSerie]);
 $result = $stmt->fetch();
-//Récupérer le trailer du film à partir de l'api TMDB
+
+// Récupération de l'URL de récupération des vidéos de la série à partir de l'API TMDB
 $url = 'https://api.themoviedb.org/3/tv/' . $result["idexterne"] . '/videos?language=en-US';
+
+// Initialisation d'une nouvelle session cURL
 $curl = curl_init();
 
+// Configuration des options de la session cURL
 curl_setopt_array($curl, [
     CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_HTTPHEADER => [
-        'Authorization: Bearer ' . $token,
-        'Content-Type: application/json',
-        "accept: application/json"
+    CURLOPT_RETURNTRANSFER => true, // Indique que la réponse sera retournée comme une chaîne de caractères
+    CURLOPT_ENCODING => "", // Indique que toutes les encodages sont autorisés
+    CURLOPT_MAXREDIRS => 10, // Indique le nombre maximum de redirections
+    CURLOPT_TIMEOUT => 30, // Indique le temps d'attente maximum pour la réponse
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, // Indique la version de l'HTTP utilisée
+    CURLOPT_CUSTOMREQUEST => "GET", // Indique la méthode HTTP utilisée
+    CURLOPT_HTTPHEADER => [ // Indique les en-têtes HTTP à envoyer avec la requête
+        'Authorization: Bearer ' . $token, // Autorisation utilisée pour l'accès à l'API TMDB
+        'Content-Type: application/json', // Type de contenu de la requête
+        "accept: application/json" // Type de contenu de la réponse attendue
     ]
 ]);
 
+// Exécution de la requête cURL et stockage de la réponse dans une variable
 $response3 = curl_exec($curl);
 $err = curl_error($curl);
+
+// Fermeture de la session cURL
 curl_close($curl);
 
+// Décode la réponse JSON en un tableau PHP
 $data2 = json_decode($response3, true);
 $results = $data2['results'];
+
+// Filtrage des éléments contenant un type de vidéo "Opening Credits" ou "Trailer"
 $key = array_keys(array_filter($results, function ($item) {
-    return $item['type'] === "Opening Credits";
+    return $item['type'] === "Opening Credits" || $item['type'] === "Trailer";
 }))[0] ?? null;
+
+// Si un élément correspondant est trouvé
 if ($key !== null) {
+    // Récupération du lien YouTube de la vidéo
     $teaser = $results[$key];
     $teaserKey = htmlspecialchars($teaser['key'], ENT_QUOTES, 'UTF-8');
     $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
 } else {
-    // handle the case where no matching element was found
-    // for example, you could throw an exception or log an error
-    $teaser = "Pas de trailers disponibles pour cette série.";
+    // Sinon, on indique qu'il n'y a pas de trailers disponibles
+    $teaser = "Pas de trailers disponibles pour cette série.";
 }
-
 ?>
 
 <!DOCTYPE html>
