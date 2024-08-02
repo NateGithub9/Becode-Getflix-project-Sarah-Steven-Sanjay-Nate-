@@ -34,9 +34,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="filmsdetails.php">Détails</a>
-                </li>
             </ul>
         </div>
     </nav>
