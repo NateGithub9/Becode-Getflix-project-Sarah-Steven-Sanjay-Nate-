@@ -159,7 +159,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                     <h3>Laisser un commentaire:</h3>
                         <form action="/submit-comment" method="POST">
                             <label for="comment"></label><br>
-                            <textarea id="comment" name="comment" rows="4" cols="130" required></textarea><br><br>
+                            <textarea id="comment" name="comment" rows="4" cols="100" required></textarea><br><br>
                             <input type="submit" value="Commenter">
                         </form>
                     <br>
