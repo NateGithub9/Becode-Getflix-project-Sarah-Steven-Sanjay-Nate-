@@ -87,7 +87,7 @@ for ($page = 1; $page <= $totalPages; $page++) {
     $datesortie = $serie['datesortie'];
     $langueorigine = $serie['langueoriginale'];
 
-    echo '<div class="col-md-3 mt-3">';
+    echo '<div class="col-md-4 mt-3">';
     echo '<div class="card" style="width: 18rem;">';
     echo '<a href="./seriesdetails.php?id=' . $id . '"><img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $serie['image'] . '" class="card-img-top" alt="' . $serie['titre'] . '"></a>';
     echo '<div class="card-body">';
