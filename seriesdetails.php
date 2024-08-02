@@ -147,8 +147,8 @@ if ($key !== null) {
                         <div class="trailer">
                             <h5>Trailer:</h5>
                             <?php
-                            if ($teaser === "Pas de trailers disponibles pour cette série.") {
-                                echo $teaser;
+                            if ($teaser === "Pas de trailers disponibles pour cette série.") {
+                                echo 'Pas de trailers disponibles pour cette série.';
                             }
                             else {
                                 echo '<iframe src="https://www.youtube.com/embed/' . $teaserKey . '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';    

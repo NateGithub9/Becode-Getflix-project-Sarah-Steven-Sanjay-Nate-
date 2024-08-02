@@ -136,7 +136,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                             <h5>Trailer:</h5>
                             <?php
                             if ($teaser === "Pas de trailer trouvé pour ce film.") {
-                                echo $teaser;
+                                echo 'Pas de trailers disponibles pour ce film.';
                             }
                             else {
                                 echo '<iframe src="https://www.youtube.com/embed/' . $teaserKey . '" width="560" height="315" frameborder="0" allowfullscreen></iframe>';    
