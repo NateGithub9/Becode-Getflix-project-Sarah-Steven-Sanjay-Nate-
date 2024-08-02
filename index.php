@@ -68,9 +68,12 @@
         </div>
         <div class="searchbar">
             <form class="form-inline justify-content-center mt-4">
-                <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
+                <input class="form-control mr-2" id="searchInputHomePage" type="search" placeholder="Recherchez votre film, série,...">
                 <button class="btn btn-primary" type="submit">Recherche</button>
             </form>
+        </div>
+        <div id="searchResultsHomePage">
+
         </div>
         <h2>Populaires</h2>
 
@@ -88,7 +91,7 @@
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
         <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
     </footer>
-
+    <script src="./searchall.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
