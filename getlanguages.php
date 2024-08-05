@@ -14,7 +14,7 @@ curl_setopt_array($curl, [
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "GET",
   CURLOPT_HTTPHEADER => [
-    "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNTI3ZjQ5MGRiZWRlNzBiZGVjOTg3YmM2ZmYyYjgyYiIsIm5iZiI6MTcyMjg0MzI0MS43NTMxNTMsInN1YiI6IjY2YTc3YmE0YzA1MTgyMTViMDQxNDI5YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LzN-zi4oiAvPvQFaaGWCBFq1Z73K4v_XoLVFxXi5tfs",
+    'Authorization: Bearer ' . $token,
     "accept: application/json"
   ],
 ]);
