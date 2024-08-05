@@ -46,15 +46,6 @@
             <button class="btn btn-primary" type="submit">Recherche</button>
         </form>
     </div>
-<<<<<<< Updated upstream
-    <div id="searchResultsSeries">
-
-    </div>
-    <div class="listeseries">
-        <?php
-        include_once('./getallseries.php');
-        ?>
-=======
     <div class="container">
         <div class="row">
             <div class="col-md-2 filters">
@@ -67,7 +58,6 @@
                 ?>
             </div>
         </div>
->>>>>>> Stashed changes
     </div>
 
 

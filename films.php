@@ -46,17 +46,18 @@
             <button class="btn btn-primary" type="submit">Recherche</button>
         </form>
     </div>
-    <div name="searchResults" id="searchResults" >
-
-    </div>
-    <div class="listefilms">
-        <?php
-        include_once('./getallfilms.php');
-        ?>   
-    </div>
-
-    <div class="filters">
-        <h2>Filtres</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 filters">
+                <h2>Filtres</h2>
+                
+            </div>
+            <div class="col-md-10 listefilms">
+                <?php
+                include_once('./getallfilms.php');
+                ?>   
+            </div>
+        </div>
     </div>
 
     <footer class="footer">
