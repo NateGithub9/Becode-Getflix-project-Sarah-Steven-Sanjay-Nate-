@@ -45,9 +45,11 @@ for ($page = 1; $page <= $totalPages; $page++) {
       $titre = $serie['original_name'];
       $description = $serie['overview'];
       $image = $serie['poster_path'];
-      $datesortie = $serie['first_air_date'];
+      $datesortie = date('d-m-Y', strtotime($serie['first_air_date'])) ;
       $langueorigine = $serie['original_language'];
       $note = $serie['vote_average'];
+
+      
 
       $sqlCheck = "SELECT COUNT(*) FROM series WHERE titre = :titre";
       $stmtCheck = $db->prepare($sqlCheck);
@@ -57,7 +59,7 @@ for ($page = 1; $page <= $totalPages; $page++) {
 
       // Préparation de la requête SQL
       if ($count == 0) {
-        $sql = "INSERT INTO series (titre, description, image, idexterne, datesortie, langueoriginale, note) VALUES (:titre, :description, :image, :idexterne, DATE_FORMAT(:datesortie, '%d-%m-%Y'), :langueorigine, :note)";
+        $sql = "INSERT INTO series (titre, description, image, idexterne, datesortie, langueoriginale, note) VALUES (:titre, :description, :image, :idexterne, :datesortie, :langueorigine, :note)";
         $stmt = $db->prepare($sql);
 
         // Préparation des paramètres de la requête
@@ -76,6 +78,8 @@ for ($page = 1; $page <= $totalPages; $page++) {
   }
 
 }
+
+
 
 //Selecitonner tous les fims dans la base de données
 $sql = "SELECT * FROM series WHERE image IS NOT NULL";

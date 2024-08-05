@@ -45,7 +45,7 @@ for ($page = 1; $page <= $totalPages; $page++) {
       $titre = $film['title'];
       $description = $film['overview'];
       $image = $film['poster_path'];
-      $datesortie = $film['release_date'];
+      $datesortie = date('d-m-Y', strtotime($film['release_date']));
       $langueorigine = $film['original_language'];
       $note = $film['vote_average'];
 
@@ -57,7 +57,7 @@ for ($page = 1; $page <= $totalPages; $page++) {
 
       // Préparation de la requête SQL
       if ($count == 0) {
-        $sql = "INSERT INTO films (titre, description, image, idexterne, datesortie, langueoriginale, note) VALUES (:titre, :description, :image, :idexterne, DATE_FORMAT(:datesortie, '%d-%m-%Y'), :langueorigine, :note)";
+        $sql = "INSERT INTO films (titre, description, image, idexterne, datesortie, langueoriginale, note) VALUES (:titre, :description, :image, :idexterne, :datesortie, :langueorigine, :note)";
         $stmt = $db->prepare($sql);
 
         // Préparation des paramètres de la requête
