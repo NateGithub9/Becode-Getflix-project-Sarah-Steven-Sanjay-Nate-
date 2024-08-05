@@ -45,8 +45,11 @@ for ($page = 1; $page <= $totalPages; $page++) {
       $titre = $serie['original_name'];
       $description = $serie['overview'];
       $image = $serie['poster_path'];
-      $datesortie = $serie['first_air_date'];
+      $datesortie = date('d-m-Y', strtotime($serie['first_air_date'])) ;
       $langueorigine = $serie['original_language'];
+      $note = $serie['vote_average'];
+
+      
 
       $sqlCheck = "SELECT COUNT(*) FROM series WHERE titre = :titre";
       $stmtCheck = $db->prepare($sqlCheck);
@@ -56,7 +59,7 @@ for ($page = 1; $page <= $totalPages; $page++) {
 
       // Préparation de la requête SQL
       if ($count == 0) {
-        $sql = "INSERT INTO series (titre, description, image, idexterne, datesortie, langueoriginale) VALUES (:titre, :description, :image, :idexterne, :datesortie, :langueorigine)";
+        $sql = "INSERT INTO series (titre, description, image, idexterne, datesortie, langueoriginale, note) VALUES (:titre, :description, :image, :idexterne, :datesortie, :langueorigine, :note)";
         $stmt = $db->prepare($sql);
 
         // Préparation des paramètres de la requête
@@ -66,6 +69,7 @@ for ($page = 1; $page <= $totalPages; $page++) {
         $stmt->bindParam(':datesortie', $datesortie);
         $stmt->bindParam(':idexterne', $idExterne);
         $stmt->bindParam(':langueorigine', $langueorigine);
+        $stmt->bindParam(':note', $note);
         $stmt->execute();
         // Fermeture de la requête
         unset($stmt);
@@ -73,27 +77,32 @@ for ($page = 1; $page <= $totalPages; $page++) {
     }
   }
 
-  //Selecitonner tous les fims dans la base de données
-  $sql = "SELECT * FROM series WHERE image IS NOT NULL";
-  $stmt = $db->prepare($sql);
-  $stmt->execute();
-  $series = $stmt->fetchAll();
+}
 
-  foreach ($series as $serie) {
-    $id = $serie['id'];
-    $titre = $serie['titre'];
-    $description = $serie['description'];
-    $image = $serie['image'];
-    $datesortie = $serie['datesortie'];
-    $langueorigine = $serie['langueoriginale'];
 
-    echo '<div class="col-md-4 mt-3">';
-    echo '<div class="card" style="width: 18rem;">';
-    echo '<a href="./seriesdetails.php?id=' . $id . '"><img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $serie['image'] . '" class="card-img-top" alt="' . $serie['titre'] . '"></a>';
-    echo '<div class="card-body">';
-    echo '<h5 class="card-title">' . $titre . '</h5>';
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-  }
+
+//Selecitonner tous les fims dans la base de données
+$sql = "SELECT * FROM series WHERE image IS NOT NULL";
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$series = $stmt->fetchAll();
+
+// Afficher les séries dans la page
+foreach ($series as $serie) { //Boucle pour afficher les séries dans la page
+  $id = $serie['id']; //Récupérer l'id de la série
+  $titre = $serie['titre']; //Récupérer le titre de la série
+  $description = $serie['description']; //Récupérer la description de la série
+  $image = $serie['image']; //Récupérer l'image de la série
+  $datesortie = $serie['datesortie']; //Récupérer la date de sortie de la série
+  $langueorigine = $serie['langueoriginale']; //Récupérer la langue originale de la série
+  $note = $serie['note']; //Récupérer la note de la série
+
+  echo '<div class="col-md-3 mt-3">'; //Créer une colonne de 3 pour les séries
+  echo '<div class="card" style="width: 18rem;">'; //Créer une carte de 18rem pour les séries
+  echo '<a href="./seriesdetails.php?id=' . $id . '"><img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $serie['image'] . '" class="card-img-top" alt="' . $serie['titre'] . '"></a>'; //Créer un lien vers la page des détails de la série  
+  echo '<div class="card-body">'; //Créer le corps de la carte
+  echo '<h5 class="card-title">' . $titre . '</h5>'; //Afficher le titre de la série
+  echo '</div>'; //Fermer le corps de la carte  
+  echo '</div>'; //Fermer la carte
+  echo '</div>'; //Fermer la colonne
 }
