@@ -7,6 +7,7 @@
     <title>Fiche films/série</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="details.css">
 </head>
 
 <body>
@@ -50,17 +51,20 @@
             <div class="col-md-8">
                 <div class="section-details">
                     <div class="contenu-details">
-                        <h2>Titre FILM/SERIE</h2>
-                
-                        <h5>Année: <span id="film-annee">2024</span></h5>
-                        <p>
-                            Blabla bla bla super film.
-                        </p>
+                        <div class="filmtitle">
+                            <h2>Titre FILM</h2>
+                        </div>
+                        <div class="year">
+                            <h5>Année:</h5>
+                        </div>
+                        <div class="description">
+                            <p>Description du film ou de la série.</p>
+                        </div>
                     </div>
-                    <!-- AJOUT LISTE/B.ANNONCE -->
+                    <!-- AJOUT LISTE/B.A -->
                     <div class="boutons">
-                        <button type="button" class="btn btn-primary">Ajouter à ma liste</button>
-                        <a href="trailer.php" class="btn btn-secondary">Voir la bande-annonce</a>
+                        <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItem()">Ajouter à ma liste</button>
+                        <button id="trailerButton" class="btn btn-secondary">Voir la bande-annonce</button>
                     </div>
                 </div>
             </div>
@@ -69,11 +73,30 @@
         <div class="row mt-4">
             <div class="col-12">
                 <div class="section-commentaires">
+                    <h3>Laisser un commentaire:</h3>
+                    <form action="/submit-comment" method="POST">
+                        <label for="comment"></label><br>
+                        <textarea id="comment" name="comment" rows="4" cols="100" required></textarea><br><br>
+                        <input type="submit" value="Commenter">
+                    </form>
+                    <br>
                     <h3>Commentaires</h3>
-                    <p>
-                        "commentaires dans cette section".
-                    </p>
+                    <p>Pas de commentaires pour l'instant.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fenêtre pop-up -->
+    <div id="trailerPopup" class="popup">
+        <div class="popup-content">
+            <span id="closePopup" class="close">&times;</span>
+            <!-- Conteneur de vidéo -->
+            <div id="trailerContainer">
+                <video id="trailerVideo" controls>
+                    <source src="URL_DE_TON_TRAILER.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la vidéo.
+                </video>
             </div>
         </div>
     </div>
@@ -81,6 +104,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
