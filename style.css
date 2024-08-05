@@ -58,7 +58,6 @@ body {
 
 .filters {
     display: flex;
-
     align-content: center;
 }
 
@@ -81,3 +80,4 @@ table tr {
   table tr:hover {
     background-color: #e6e6e6;
   }
+

@@ -124,16 +124,23 @@ if ($key !== null) {
                         </div>
                 
                         <div class="year">
-                            <h5>Année: 
+                            <h5>Date de sortie: 
                             <?php 
                                 echo $result['datesortie'];
                             ?>
                             </h5>
                         </div>
                         <div class="language">
-                            <h5>Langue:
+                            <h5>Langue originale:
                             <?php
                                 echo $result['langueoriginale'];
+                            ?>
+                            </h5>
+                        </div>
+                        <div class="note">
+                            <h5>Note (/10) :
+                            <?php
+                                echo $result['note'];
                             ?>
                             </h5>
                         </div>
