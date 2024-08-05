@@ -46,7 +46,6 @@
             <button class="btn btn-primary" type="submit">Recherche</button>
         </form>
     </div>
-
     <div id="searchResultsSeries">
 
     </div>
@@ -54,6 +53,18 @@
         <?php
         include_once('./getallseries.php');
         ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 filters">
+                <h2>Filtres</h2>
+                
+            </div>
+            <div class="col-md-10 listeseries">
+                <?php
+                include_once('./getallseries.php');
+                ?>
+            </div>
+        </div>
     </div>
 
 

@@ -46,17 +46,39 @@
             <button class="btn btn-primary" type="submit">Recherche</button>
         </form>
     </div>
-    <div name="searchResults" id="searchResults" >
+    <div name="searchResults" id="searchResults">
 
     </div>
     <div class="listefilms">
         <?php
         include_once('./getallfilms.php');
-        ?>   
+        ?>     
     </div>
+
+    <button id="show-more-button" class="btn btn-primary" type="submit" onclick="loadMoreFilms()">Afficher plus de films</button>
 
     <div class="filters">
         <h2>Filtres</h2>
+        <form class="form-inline" id="film-filters-form" method="POST">
+            <label for="langue">Langue originale:</label>
+            <select name="langue" id="langue" class="form-control">
+                <option value="" selected>Toutes les langues</option>
+                <?php
+                include_once('./getlanguages.php');
+                ?>
+            </select>
+            <label for="note">Note:</label>
+            <input type="range" name="note" class="form-control-range note" min="0" max="10" step="1">
+            <span class="currentNoteValue"></span>
+            <label for="datesortie">Date de sortie:</label>
+            <div class="datesortie">
+                <label for="datesortiedebut">De:</label>
+                <input type="date" name="datesortiedebut" class="form-control datesortiedebut">
+                <label for="datesortiefin">À:</label>
+                <input type="date" name="datesortiefin"  class="form-control datesortiefin">
+            </div>
+            <button class="btn btn-primary button-for-filters" type="submit">Recherche</button>
+        </form>
     </div>
 
     <footer class="footer">
@@ -64,6 +86,8 @@
         <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
     </footer>
     <script src="./searchfilms.js"></script>
+    <script src="./displaynote.js"></script>
+    <script src="./showmore.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
