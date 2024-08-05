@@ -46,6 +46,7 @@
             <button class="btn btn-primary" type="submit">Recherche</button>
         </form>
     </div>
+
     <div id="searchResultsSeries">
 
     </div>
