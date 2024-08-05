@@ -84,7 +84,7 @@ for ($page = 1; $page <= $totalPages; $page++) {
     $id = $film['id'];
     $titre = $film['titre'];
     $description = $film['description'];
-    echo '<div class="col-md-3 mt-3">';
+    echo '<div class="col-md-4 mt-3">';
     echo '<div class="card" style="width: 18rem;">';
     echo '<a href="./filmsdetails.php?id=' . $id . '"><img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $film['image'] . '" class="card-img-top" alt="' . $film['titre'] . '"></a>';
     echo '<div class="card-body">';
