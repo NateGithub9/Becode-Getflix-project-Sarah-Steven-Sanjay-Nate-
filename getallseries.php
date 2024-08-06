@@ -4,7 +4,7 @@ include_once('./configdb.php');
 include_once('./accestoken.php');
 
 // Nombre total de pages à récupérer
-$totalPages = 10;
+$totalPages = 1;
 
 // URL de base pour la requête
 $baseUrl = "https://api.themoviedb.org/3/discover/tv?language=fr-FR&sort_by=popularity.desc&adult=false&";
@@ -45,7 +45,7 @@ for ($page = 1; $page <= $totalPages; $page++) {
       $titre = $serie['original_name'];
       $description = $serie['overview'];
       $image = $serie['poster_path'];
-      $datesortie = date('d-m-Y', strtotime($serie['first_air_date'])) ;
+      $datesortie = $serie['first_air_date'];
       $langueorigine = $serie['original_language'];
       $note = $serie['vote_average'];
 
@@ -80,12 +80,61 @@ for ($page = 1; $page <= $totalPages; $page++) {
 }
 
 
+$langue = isset($_POST['langue']) ? $_POST['langue'] : null;
+$note = isset($_POST['note']) ? $_POST['note'] : null;
+$dateDebut = !empty($_POST['datesortiedebut']) ? $_POST['datesortiedebut'] : '';
+$dateFin = !empty($_POST['datesortiefin']) ? $_POST['datesortiefin'] : '';
 
-//Selecitonner tous les fims dans la base de données
+// Récupération du LIMIT dynamique
+$limit = isset($_POST['limit']) ? intval($_POST['limit']) : 12;
+$offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
+
+//Requête SQL de base
 $sql = "SELECT * FROM series WHERE image IS NOT NULL";
+
+//Ajout des filtres à la requête SQL
+//Si la langue est sélectionnée, on ajoute la condition à la requête SQL
+if (!empty($langue)) {
+  $sql .= " AND langueoriginale = :langue";
+}
+//Si la note est sélectionnée, on ajoute la condition à la requête SQL
+if (!empty($note)) {
+  $sql .= " AND note >= :note";
+}
+//Si la date de début et de fin sont sélectionnées, on ajoute la condition à la requête SQL
+if (!empty($dateDebut) && !empty($dateFin)) {
+  $sql .= " AND datesortie BETWEEN :datesortiedebut AND :datesortiefin";
+}
+
+$sql .= " LIMIT :limit OFFSET :offset";
+
+//Préparation de la requête SQL
 $stmt = $db->prepare($sql);
+
+// Si la langue est sélectionnée, on prépare le paramètre de la requête SQL
+if ($langue) {
+  $stmt->bindParam(':langue', $langue, PDO::PARAM_STR);
+}
+
+// Si la note est sélectionnée, on prépare le paramètre de la requête SQL
+if ($note) {
+  $stmt->bindParam(':note', $note, PDO::PARAM_INT);
+}
+//Si la date de début et de fin est sélectionnée, on prépare le paramètre de la requête SQL
+if ($dateDebut && $dateFin) {
+  $stmt->bindParam(':datesortiedebut', $dateDebut, PDO::PARAM_STR);
+  $stmt->bindParam(':datesortiefin', $dateFin, PDO::PARAM_STR);
+}
+//Si la limite est sélectionnée, on prépare le paramètre de la requête SQL
+$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+// Exécution de la requête SQL
 $stmt->execute();
+
+// Récupération des résultats
 $series = $stmt->fetchAll();
+
 
 // Afficher les séries dans la page
 foreach ($series as $serie) { //Boucle pour afficher les séries dans la page

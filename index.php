@@ -1,3 +1,7 @@
+<?php
+    include_once('./configdb.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,15 +80,20 @@
 
         </div>
         <h2>Populaires</h2>
-
             <?php 
-                include_once('./popularfilms.php');
-            ?>
-
-        <h2 class="mt-5">Nouveaux</h2>
-
-            <?php 
-                include_once('./latestfilms.php');
+                $sql = "SELECT * FROM films LIMIT 8";
+                $stmt = $db->prepare($sql);
+                $stmt->execute();
+                $films = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo '<div class="row">';
+                foreach ($films as $film) {
+                    echo '<div class="col-md-3 mt-3">';
+                    echo '<div class="thumbnail">';
+                    echo '<a href="filmsdetails.php?id=' . $film['id'] . '"><img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $film['image'] . '" alt="' . $film['titre'] . '"></a>';
+                    echo '</div>';
+                    echo '</div>';  
+                }
+                echo '</div>';
             ?>
     </div>
     <footer class="footer">
