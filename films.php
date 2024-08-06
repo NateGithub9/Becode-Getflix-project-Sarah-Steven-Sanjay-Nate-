@@ -52,39 +52,45 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 filters">        
+            <div class="col-md-2 filters">
                 <h2>Filtres</h2>
-                <form class="form-inline" id="film-filters-form" method="POST">
+                <form class="form-inline filters-form" method="POST">
                     <label for="langue">Langue originale:</label>
-                        <select name="langue" id="langue" class="form-control">
-                        <option value="" selected>Toutes les langues</option>
-                            <?php
-                            include_once('./getlanguages.php');
-                            ?>
-                        </select>
+                    <select name="langue" id="langue" class="form-control">
+                        <option value="" <?php if (!isset($_POST['langue']) || $_POST['langue'] == "") echo "selected"; ?>>Toutes les langues</option>
+                        <?php
+                        include_once('./getlanguages.php');
+                        if (isset($_POST['langue'])) {
+                            $selectedLangue = $_POST['langue'];
+                            echo "<script>document.getElementById('langue').value = '$selectedLangue';</script>";
+                        }
+                        ?>
+                    </select>
                     <label for="note">Note:</label>
-                    <input type="range" name="note" class="form-control-range note" min="0" max="10" step="1">
-                    <span class="currentNoteValue"></span>
+                    <input type="range" name="note" class="form-control-range note" min="0" max="10" step="1" value="<?php echo isset($_POST['note']) ? $_POST['note'] : '0'; ?>">
+                    <span class="currentNoteValue"><?php echo isset($_POST['note']) ? $_POST['note'] : '0'; ?></span>
                     <label for="datesortie">Date de sortie:</label>
-                        <div class="datesortie">
+                    <div class="datesortie">
                         <label for="datesortiedebut">De:</label>
-                        <input type="date" name="datesortiedebut" class="form-control datesortiedebut">
+                        <input type="date" name="datesortiedebut" class="form-control datesortiedebut" value="<?php echo isset($_POST['datesortiedebut']) ? $_POST['datesortiedebut'] : ''; ?>">
                         <label for="datesortiefin">À:</label>
-                        <input type="date" name="datesortiefin"  class="form-control datesortiefin">
-                        </div>
+                        <input type="date" name="datesortiefin" class="form-control datesortiefin" value="<?php echo isset($_POST['datesortiefin']) ? $_POST['datesortiefin'] : ''; ?>">
+                    </div>
                     <button class="btn btn-primary button-for-filters" type="submit">Recherche</button>
                 </form>
             </div>
             <div class="col-md-10 listefilms">
                 <?php
                 include_once('./getallfilms.php');
-                ?>   
-            <button id="show-more-button" class="btn btn-primary" type="submit" onclick="loadMoreFilms()">Afficher plus de films</button>
+                ?>
             </div>
+        </div>
+        <div id="show-more-button">
+            <button class="btn btn-primary" type="submit" onclick="loadMoreItems('films')">Afficher plus de films</button>
         </div>
     </div>
 
-    
+
 
 
     <footer class="footer">
