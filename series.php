@@ -11,7 +11,7 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
         <a href="index.php"><img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,33 +49,57 @@
     <div id="searchResultsSeries">
 
     </div>
-    <div class="listeseries">
-        <?php
-        include_once('./getallseries.php');
-        ?>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2 filters">
-                <h2>Filtres</h2>
-                
-            </div>
-            <div class="col-md-10 listeseries">
-                <?php
-                include_once('./getallseries.php');
-                ?>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 filters">
+                    <h2>Filtres</h2>
+                    <form class="form-inline filters-form" method="POST">
+                        <label for="langue">Langue originale:</label>
+                        <select name="langue" id="langue" class="form-control">
+                            <option value="" <?php if (!isset($_POST['langue']) || $_POST['langue'] == "") echo "selected"; ?>>Toutes les langues</option>
+                            <?php
+                            include_once('./getlanguages.php');
+                            if (isset($_POST['langue'])) {
+                                $selectedLangue = $_POST['langue'];
+                                echo "<script>document.getElementById('langue').value = '$selectedLangue';</script>";
+                            }
+                            ?>
+                        </select>
+                        <label for="note">Note:</label>
+                        <input type="range" name="note" class="form-control-range note" min="0" max="10" step="1" value="<?php if (isset($_POST['note'])) echo $_POST['note']; else echo "0"; ?>">
+                        <span class="currentNoteValue"><?php if (isset($_POST['note'])) echo $_POST['note']; else echo "0"; ?></span>
+                        <label for="datesortie">Date de sortie:</label>
+                        <div class="datesortie">
+                            <label for="datesortiedebut">De:</label>
+                            <input type="date" name="datesortiedebut" class="form-control datesortiedebut" value="<?php if (isset($_POST['datesortiedebut'])) echo $_POST['datesortiedebut']; ?>">
+                            <label for="datesortiefin">À:</label>
+                            <input type="date" name="datesortiefin" class="form-control datesortiefin" value="<?php if (isset($_POST['datesortiefin'])) echo $_POST['datesortiefin']; ?>">
+                        </div>
+                        <button class="btn btn-primary button-for-filters" type="submit">Recherche</button>
+                    </form>
+                </div>
+                <div class="col-md-10 listeseries">
+                    <?php
+                    include_once('./getallseries.php');
+                    ?>
+                </div>
             </div>
         </div>
-    </div>
+        <div id="show-more-button">
+            <button class="btn btn-primary" type="submit" onclick="loadMoreItems('series')">Afficher plus de séries</button>
+        </div>
 
 
-    <footer class="footer">
-        Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
-        <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
-    </footer>
-    <script src="./searchseries.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <footer class="footer">
+            Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
+            <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
+        </footer>
+        <script src="./showmore.js"></script>
+        <script src="./displaynote.js"></script>
+        <script src="./searchseries.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
