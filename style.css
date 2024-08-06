@@ -57,8 +57,12 @@ body {
 }
 
 .filters {
-    display: flex;
-    align-content: center;
+    background-color: #f8f9fa;
+    color: #111;
+}
+
+.btn-primary {
+    
 }
 
 .card-title {
@@ -80,4 +84,6 @@ table tr {
   table tr:hover {
     background-color: #e6e6e6;
   }
+
+
 
