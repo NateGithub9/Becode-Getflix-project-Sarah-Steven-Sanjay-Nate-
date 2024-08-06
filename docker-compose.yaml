@@ -33,6 +33,9 @@ services:
       PMA_HOST: db
       PMA_USER: root
       PMA_PASSWORD: pass
+      UPLOAD_MAX_FILESIZE: 8M
+      POST_MAX_SIZE: 8M
+      UPLOAD_LIMIT: 8M
     ports:
       - 8899:80
 
