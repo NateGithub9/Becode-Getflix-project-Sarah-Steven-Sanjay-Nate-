@@ -74,6 +74,9 @@
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;" type="submit"><i class="fab fa-google me-2"></i> Se connecter avec Google</button>
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;" type="submit"><i class="fab fa-facebook-f me-2"></i>Se connecter avec Facebook</button>
 
+                            <!-- Bouton Inscription -->
+                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-secondary mt-2" style="background-color: #6c757d;" onclick="window.location.href='formulaireinscription.php'">Créer un compte</button>
+
                         </div>
                     </div>
                 </div>

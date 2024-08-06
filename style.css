@@ -69,6 +69,19 @@ body {
     color:black;
 }
 
+/* Styles pour les boutons */
+.boutons {
+    display: flex;
+    gap: 10px; 
+    margin-top: auto;
+}
+
+.boutons button,
+.boutons a {
+    flex: 1;
+    text-align: center;
+}
+
 #searchResults {
     display: flex;
     flex-direction: row;
