@@ -49,37 +49,43 @@
     <div name="searchResults" id="searchResults">
 
     </div>
-    <div class="listefilms">
-        <?php
-        include_once('./getallfilms.php');
-        ?>     
-    </div>
 
-    <button id="show-more-button" class="btn btn-primary" type="submit" onclick="loadMoreFilms()">Afficher plus de films</button>
-
-    <div class="filters">
-        <h2>Filtres</h2>
-        <form class="form-inline" id="film-filters-form" method="POST">
-            <label for="langue">Langue originale:</label>
-            <select name="langue" id="langue" class="form-control">
-                <option value="" selected>Toutes les langues</option>
-                <?php
-                include_once('./getlanguages.php');
-                ?>
-            </select>
-            <label for="note">Note:</label>
-            <input type="range" name="note" class="form-control-range note" min="0" max="10" step="1">
-            <span class="currentNoteValue"></span>
-            <label for="datesortie">Date de sortie:</label>
-            <div class="datesortie">
-                <label for="datesortiedebut">De:</label>
-                <input type="date" name="datesortiedebut" class="form-control datesortiedebut">
-                <label for="datesortiefin">À:</label>
-                <input type="date" name="datesortiefin"  class="form-control datesortiefin">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 filters">        
+                <h2>Filtres</h2>
+                <form class="form-inline" id="film-filters-form" method="POST">
+                    <label for="langue">Langue originale:</label>
+                        <select name="langue" id="langue" class="form-control">
+                        <option value="" selected>Toutes les langues</option>
+                            <?php
+                            include_once('./getlanguages.php');
+                            ?>
+                        </select>
+                    <label for="note">Note:</label>
+                    <input type="range" name="note" class="form-control-range note" min="0" max="10" step="1">
+                    <span class="currentNoteValue"></span>
+                    <label for="datesortie">Date de sortie:</label>
+                        <div class="datesortie">
+                        <label for="datesortiedebut">De:</label>
+                        <input type="date" name="datesortiedebut" class="form-control datesortiedebut">
+                        <label for="datesortiefin">À:</label>
+                        <input type="date" name="datesortiefin"  class="form-control datesortiefin">
+                        </div>
+                    <button class="btn btn-primary button-for-filters" type="submit">Recherche</button>
+                </form>
             </div>
-            <button class="btn btn-primary button-for-filters" type="submit">Recherche</button>
-        </form>
+            <div class="col-md-10 listefilms">
+                <?php
+                include_once('./getallfilms.php');
+                ?>   
+            <button id="show-more-button" class="btn btn-primary" type="submit" onclick="loadMoreFilms()">Afficher plus de films</button>
+            </div>
+        </div>
     </div>
+
+    
+
 
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
