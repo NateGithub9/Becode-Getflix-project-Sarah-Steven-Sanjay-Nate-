@@ -53,7 +53,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiche films/série</title>
+    <title>Détails</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="details.css">
@@ -63,7 +63,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <a href="index.php"><img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
+        <a href="index.php"><img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -77,9 +77,6 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="series.php">Séries</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="maliste.php">Ma Liste</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
