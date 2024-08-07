@@ -1,26 +1,18 @@
-<?php 
-// Définition des constantes pour la connexion à la base de données
-// dbhost : nom d'hôte du serveur MySQL
-// dbuser : nom d'utilisateur à utiliser pour la connexion à la base de données
-// dbpass : mot de passe à utiliser pour la connexion à la base de données
-// dbname : nom de la base de données à utiliser
+<?php
 
-const dbhost = "db"; // nom d'hôte du serveur MySQL
-const dbuser = "test"; // nom d'utilisateur à utiliser pour la connexion à la base de données
-const dbpass = "pass"; // mot de passe à utiliser pour la connexion à la base de données
-const dbname = "GetflixDB"; // nom de la base de données à utiliser
+// Get database credentials from Config Vars
+$host = getenv('DB_HOST');
+$dbname = getenv('DB_NAME');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASS');
 
-// Création de la chaîne de connexion à la base de données
-$dsn = "mysql:host=" . dbhost . ";dbname=" . dbname . ";charset=utf8";
-
-// Tentative de connexion à la base de données
+// Establish the database connection
 try {
-    $db = new PDO($dsn, dbuser, dbpass);
-
-} 
-catch (PDOException $exception) {
-    // Si une erreur se produit lors de la connexion à la base de données, l'erreur est affichée et le programme s'arrête
-    echo $exception->getMessage();
-    die;
+    $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connected successfully"; 
+} catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
 }
 
+?> 
