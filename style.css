@@ -1,6 +1,6 @@
 body {
-    background-color: #111;
-    color: #fff;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 .navbar {
@@ -51,6 +51,10 @@ body {
     color:#fff;
 }
 
+.row{
+    margin-top: 2%;
+}
+
 .listefilms {
     display: flex;
     flex-direction: row;
@@ -64,7 +68,16 @@ body {
 }
 
 .filters {
-    background-color: #f8f9fa;
+    background-color: #fac57a;
+    color: #111;
+    height: 380px;
+    padding-right: 0px;
+    margin-right: 0px;
+    border-radius: 2%;
+}
+
+.sections {
+    background-color: #fac57a;
     color: #111;
     height: 380px;
     padding-right: 0px;
@@ -134,6 +147,24 @@ table tr {
   table tr:hover {
     background-color: #e6e6e6;
   }
+
+#show-more-button {
+    display: flex;
+    align-content: center;
+    
+}
+
+#searchInputHomePage {
+    margin-left: 1%;
+}
+
+#searchInput {
+    margin-left: 1%;
+}
+
+#searchInputSeries {
+    margin-left: 1%;
+}
 
 
 
