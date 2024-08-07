@@ -55,6 +55,16 @@
             <div class="col-md-2 filters">
                 <h2>Filtres</h2>
                 <form class="form-inline filters-form" method="POST">
+                    <label for="tri">Trier par:</label>
+                    <select name="tri" id="tri" class="form-control">
+                        <option value="" <?php echo (!isset($_POST['tri']) || $_POST['tri'] == "") ? 'selected' : ''; ?>>Trier par</option>
+                        <option value="notedesc" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "notedesc") ? 'selected' : ''; ?>>Note (Décroissant)</option>
+                        <option value="note" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "note") ? 'selected' : ''; ?>>Note (Croissant)</option>
+                        <option value="datedesc" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "datedesc") ? 'selected' : ''; ?>>Date (+ ancien)</option>
+                        <option value="date" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "date") ? 'selected' : ''; ?>>Date (+ récent)</option>
+                        <option value="titredesc" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "titredesc") ? 'selected' : ''; ?>>Titre (de Z à A)</option>
+                        <option value="titre" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "titre") ? 'selected' : ''; ?>>Titre (de A à Z)</option>
+                    </select>
                     <label for="langue">Langue originale:</label>
                     <select name="langue" id="langue" class="form-control">
                         <option value="" <?php if (!isset($_POST['langue']) || $_POST['langue'] == "") echo "selected"; ?>>Toutes les langues</option>
