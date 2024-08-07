@@ -7,7 +7,7 @@ include_once('./accestoken.php');
 $totalPages = 1;
 
 // URL de base pour la requête
-$baseUrl = "https://api.themoviedb.org/3/discover/movie?language=fr-FR&sort_by=popularity.desc&adult=false&";
+$baseUrl = "https://api.themoviedb.org/3/discover/movie?language=fr-FR&sort_by=popularity.desc&include_adult=false";
 
 
 
@@ -80,54 +80,80 @@ $langue = isset($_POST['langue']) ? $_POST['langue'] : null;
 $note = isset($_POST['note']) ? $_POST['note'] : null;
 $dateDebut = !empty($_POST['datesortiedebut']) ? $_POST['datesortiedebut'] : '';
 $dateFin = !empty($_POST['datesortiefin']) ? $_POST['datesortiefin'] : '';
+$tri = isset($_POST['tri']) ? $_POST['tri'] : '';
 
 // Récupération du LIMIT dynamique
-$limit = isset($_POST['limit']) ? intval($_POST['limit']) : 12;
-$offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
+$limit = isset($_POST['limit']) ? (int)$_POST['limit'] : 12;
+$offset = isset($_POST['offset']) ? (int)$_POST['offset'] : 0;
 
 //Requête SQL de base
-$sql = "SELECT * FROM films WHERE image IS NOT NULL";
+ $sql = "SELECT * FROM films WHERE image IS NOT NULL";
+
+  //Si la langue est sélectionnée, on ajoute la condition à la requête SQL
+  if (!empty($langue)) {
+    $sql .= " AND langueoriginale = :langue";
+  }
+ //Si la note est sélectionnée, on ajoute la condition à la requête SQL
+  if (!empty($note)) {
+   $sql .= " AND note >= :note";
+  }
+ //Si la date de début et de fin sont sélectionnées, on ajoute la condition à la requête SQL
+ if (!empty($dateDebut) && !empty($dateFin)) {
+   $sql .= " AND datesortie BETWEEN :datesortiedebut AND :datesortiefin";  
+ }
 
 //Ajout des filtres à la requête SQL
-//Si la langue est sélectionnée, on ajoute la condition à la requête SQL
-if (!empty($langue)) {
-  $sql .= " AND langueoriginale = :langue";
-}
-//Si la note est sélectionnée, on ajoute la condition à la requête SQL
-if (!empty($note)) {
-  $sql .= " AND note >= :note";
-}
-//Si la date de début et de fin sont sélectionnées, on ajoute la condition à la requête SQL
-if (!empty($dateDebut) && !empty($dateFin)) {
-  $sql .= " AND datesortie BETWEEN :datesortiedebut AND :datesortiefin";
-}
+ switch ($tri) {
+   case "note":
+     $sql .= " ORDER BY note DESC";
+    break;
+   case "notedesc":
+     $sql .= " ORDER BY note ASC";
+     break;
+   case "date":
+      $sql .= " ORDER BY datesortie DESC";
+     break;
+   case "datedesc":
+     $sql .= " ORDER BY datesortie ASC";
+     break;
+   case "titre":
+    $sql .= " ORDER BY titre ASC";
+    break;
+   case "titredesc":
+     $sql .= " ORDER BY titre DESC";
+     break;
+   default:
+     break;
+ }
+
 //Ajout de la limite et de l'offset à la requête SQL
 $sql .= " LIMIT :limit OFFSET :offset";
-
 
 //Préparation de la requête SQL
 $stmt = $db->prepare($sql);
 
 // Si la langue est sélectionnée, on prépare le paramètre de la requête SQL
-if ($langue) {
+if (!empty($langue)) {
   $stmt->bindParam(':langue', $langue, PDO::PARAM_STR);
-}
+ }
 
 // Si la note est sélectionnée, on prépare le paramètre de la requête SQL
-if ($note) {
+ if (!empty($note)) {
   $stmt->bindParam(':note', $note, PDO::PARAM_INT);
-}
+ }
 //Si la date de début et de fin est sélectionnée, on prépare le paramètre de la requête SQL
-if ($dateDebut && $dateFin) {
+ if (!empty($dateDebut) && !empty($dateFin)) {
   $stmt->bindParam(':datesortiedebut', $dateDebut, PDO::PARAM_STR);
   $stmt->bindParam(':datesortiefin', $dateFin, PDO::PARAM_STR);
 }
 //Si la limite est sélectionnée, on prépare le paramètre de la requête SQL
 $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+
 //Si l'offset est sélectionnée, on prépare le paramètre de la requête SQL
 $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
 // Exécution de la requête SQL
-$stmt->execute();
+ $stmt->execute();
 
 // Récupération des résultats
 $films = $stmt->fetchAll();
