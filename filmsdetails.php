@@ -131,7 +131,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                         <div class="note">
                             <h5>Note (/10) :
                             <?php
-                                echo $result['note'];
+                                echo number_format($result['note'], 1);
                             ?>
                             </h5>
                         </div>

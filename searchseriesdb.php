@@ -2,35 +2,40 @@
 // On inclut le fichier de configuration de la base de données
 include_once('./configdb.php');
 
-// On vérifie si la variable $_POST['query'] est définie
-// Si oui, on récupère la valeur de cette variable et on l'assigne à $query
-if (isset($_POST['query'])) {
-    $query = $_POST['query'];
+// Définir le type de contenu de la réponse comme JSON
+header('Content-Type: application/json');
 
-    // On vérifie si la variable $query n'est pas vide
-    // Si elle n'est pas vide, on exécute une requête SQL
-    if (!empty($query)) {
-        // On prépare la requête SQL qui recherche les films dont le titre contient la valeur de $query
-        $sql = "SELECT titre, id FROM series WHERE titre LIKE '%" . $query . "%'";
+// Initialiser la variable $query
+$query = '';
+
+// On vérifie si la variable $_POST['query'] est définie et non vide
+if (isset($_POST['query']) && !empty($_POST['query'])) {
+    // On nettoie la valeur de $query pour éviter les injections XSS
+    $query = htmlspecialchars($_POST['query'], ENT_QUOTES, 'UTF-8');
+
+    try {
+        // On prépare la requête SQL en utilisant un paramètre lié pour éviter les injections SQL
+        $sql = "SELECT titre, id FROM series WHERE titre LIKE :query";
         $stmt = $db->prepare($sql);
+        
+        // On lie le paramètre en ajoutant les caractères % pour la recherche partielle
+        $stmt->bindValue(':query', '%' . $query . '%', PDO::PARAM_STR);
+        
         $stmt->execute();
 
         // On récupère les résultats de la requête SQL dans un tableau
         $series = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // On formate les résultats en un tableau d'objets avec les propriétés 'titre' et 'id'
-        echo json_encode(array_map(function($serie) {
-            return [
-                'titre' => $serie['titre'],
-                'id' => $serie['id']
-            ];
-        }, $series));
-    } else {
-        // Si la variable $query est vide, on renvoie un tableau vide
-        echo json_encode([]);
+        // On renvoie directement le tableau de résultats
+        echo json_encode($series);
+    } catch (PDOException $e) {
+        // En cas d'erreur, on renvoie un message d'erreur générique
+        // et on log l'erreur réelle pour le débogage
+        error_log('Erreur de base de données : ' . $e->getMessage());
+        echo json_encode(['error' => 'Une erreur est survenue lors de la recherche.']);
     }
 } else {
-    // Si la variable $_POST['query'] n'est pas définie, on renvoie un tableau vide
+    // Si la variable $_POST['query'] n'est pas définie ou vide, on renvoie un tableau vide
     echo json_encode([]);
 }
 ?>
