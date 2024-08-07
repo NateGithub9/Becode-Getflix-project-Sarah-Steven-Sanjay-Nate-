@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Website</title>
+    <title>Getflix</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,7 +13,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <a href="index.php"><img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
+        <a href="index.php"><img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,9 +29,6 @@
                     <a class="nav-link" href="series.php">Séries</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="maliste.php">Ma Liste</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
                 </li>
             </ul>
@@ -41,9 +38,11 @@
         <h1>Liste des films</h1>
     </div>
     <div class="search">
-        <form class="form-inline justify-content-center mt-4">
+        <form class="form-inline justify-content-center mt-4">                
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+            </svg>
             <input id="searchInput" class="form-control mr-2" name="searchInput" type="search" placeholder="Recherchez votre film">
-            <button class="btn btn-primary" type="submit">Recherche</button>
         </form>
     </div>
     <div name="searchResults" id="searchResults">
