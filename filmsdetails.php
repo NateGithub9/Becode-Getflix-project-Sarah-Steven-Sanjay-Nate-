@@ -113,7 +113,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                         <div class="year">
                             <h5>Date de sortie: 
                             <?php 
-                                echo $result['datesortie'];
+                                echo date('d-m-Y', strtotime($result['datesortie']));
                             ?>
                             </h5>
                         </div>

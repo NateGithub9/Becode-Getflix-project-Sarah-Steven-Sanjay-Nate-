@@ -44,9 +44,9 @@ curl_close($curl);
 $data2 = json_decode($response3, true);
 $results = $data2['results'];
 
-// Filtrage des éléments contenant un type de vidéo "Opening Credits" ou "Trailer"
+// Filtrage des éléments contenant un type de vidéo "Opening Credits" ou "Trailer" ou "Featurette"
 $key = array_keys(array_filter($results, function ($item) {
-    return $item['type'] === "Opening Credits" || $item['type'] === "Trailer";
+    return $item['type'] === "Opening Credits" || $item['type'] === "Trailer" || $item['type'] === "Featurette";
 }))[0] ?? null;
 
 // Si un élément correspondant est trouvé
@@ -126,7 +126,7 @@ if ($key !== null) {
                         <div class="year">
                             <h5>Date de sortie: 
                             <?php 
-                                echo $result['datesortie'];
+                                echo date('d-m-Y', strtotime($result['datesortie']));
                             ?>
                             </h5>
                         </div>

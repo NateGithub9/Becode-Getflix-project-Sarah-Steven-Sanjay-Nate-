@@ -4,7 +4,7 @@ include_once('./configdb.php');
 include_once('./accestoken.php');
 
 // Nombre total de pages à récupérer
-$totalPages = 10;
+$totalPages = 1;
 
 // URL de base pour la requête
 $baseUrl = "https://api.themoviedb.org/3/discover/movie?language=fr-FR&sort_by=popularity.desc&adult=false&";
@@ -45,7 +45,7 @@ for ($page = 1; $page <= $totalPages; $page++) {
       $titre = $film['title'];
       $description = $film['overview'];
       $image = $film['poster_path'];
-      $datesortie = date('d-m-Y', strtotime($film['release_date']));
+      $datesortie = $film['release_date'];
       $langueorigine = $film['original_language'];
       $note = $film['vote_average'];
 
@@ -78,11 +78,12 @@ for ($page = 1; $page <= $totalPages; $page++) {
 //Récupération des filtres
 $langue = isset($_POST['langue']) ? $_POST['langue'] : null;
 $note = isset($_POST['note']) ? $_POST['note'] : null;
-$dateDebut = !empty($_POST['datesortiedebut']) ? date('d-m-Y', strtotime($_POST['datesortiedebut'])) : '';
-$dateFin = !empty($_POST['datesortiefin']) ? date('d-m-Y', strtotime($_POST['datesortiefin'])) : '';
+$dateDebut = !empty($_POST['datesortiedebut']) ? $_POST['datesortiedebut'] : '';
+$dateFin = !empty($_POST['datesortiefin']) ? $_POST['datesortiefin'] : '';
 
 // Récupération du LIMIT dynamique
 $limit = isset($_POST['limit']) ? intval($_POST['limit']) : 12;
+$offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
 
 //Requête SQL de base
 $sql = "SELECT * FROM films WHERE image IS NOT NULL";
@@ -100,8 +101,9 @@ if (!empty($note)) {
 if (!empty($dateDebut) && !empty($dateFin)) {
   $sql .= " AND datesortie BETWEEN :datesortiedebut AND :datesortiefin";
 }
+//Ajout de la limite et de l'offset à la requête SQL
+$sql .= " LIMIT :limit OFFSET :offset";
 
-$sql .= " LIMIT :limit";
 
 //Préparation de la requête SQL
 $stmt = $db->prepare($sql);
@@ -122,7 +124,8 @@ if ($dateDebut && $dateFin) {
 }
 //Si la limite est sélectionnée, on prépare le paramètre de la requête SQL
 $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-
+//Si l'offset est sélectionnée, on prépare le paramètre de la requête SQL
+$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 // Exécution de la requête SQL
 $stmt->execute();
 
