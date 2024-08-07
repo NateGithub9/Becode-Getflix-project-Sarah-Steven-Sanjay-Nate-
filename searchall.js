@@ -1,65 +1,89 @@
-// Recherche pour les films et séries
+// Fonction pour échapper les caractères HTML spéciaux
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+}
 
-// On récupère les éléments de l'interface utilisateur qui sont nécessaires pour la recherche
+// Fonction de debounce pour limiter le nombre de requêtes
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// On récupère les éléments de l'interface utilisateur
 const searchInputHomePage = document.getElementById('searchInputHomePage');
 const searchResultsHomePage = document.getElementById('searchResultsHomePage');
 
-// On ajoute un écouteur d'événement sur l'input de recherche
-searchInputHomePage.addEventListener('input', function() {
-
-    // On récupère la valeur de l'input de recherche en minuscules
+// Fonction de recherche avec debounce
+const debouncedSearch = debounce(function() {
     const searchTermHomePage = searchInputHomePage.value.toLowerCase();
 
-    // On crée une requête HTTP POST vers le fichier PHP de recherche
+    if (searchTermHomePage.length < 2) {
+        searchResultsHomePage.innerHTML = '';
+        return;
+    }
+
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'searchalldb.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    // On ajoute un écouteur d'événement pour vérifier si la requête est terminée
     xhr.onreadystatechange = function() {
-
-        // On vérifie si la requête est terminée et si son statut est 200 (OK)
-        if (xhr.readyState === 4 && xhr.status === 200) {
-
-            // On récupère les résultats de la requête en tant que tableau JSON
-            const results = JSON.parse(xhr.responseText);
-
-            // On appelle la fonction displayAllResults pour afficher les résultats
-            displayAllResults(results);
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    const results = JSON.parse(xhr.responseText);
+                    displayAllResults(results);
+                } catch (e) {
+                    console.error('Erreur lors du parsing JSON:', e);
+                    displayAllResults([]);
+                }
+            } else {
+                console.error('Erreur de requête:', xhr.status);
+                displayAllResults([]);
+            }
         }
     };
 
-    // On envoie la requête avec la valeur de l'input de recherche
     xhr.send('query=' + encodeURIComponent(searchTermHomePage));
-});
+}, 300); // 300ms de délai
 
-// Cette fonction prend en paramètre les résultats de la recherche et les affiche dans l'interface utilisateur
+// On ajoute l'écouteur d'événement avec la fonction debounce
+searchInputHomePage.addEventListener('input', debouncedSearch);
+
+// Fonction pour afficher les résultats
 function displayAllResults(results) {
     searchResultsHomePage.innerHTML = '';
-    const table = document.createElement('table');
 
-    // Si des résultats sont trouvés
     if (results.length > 0) {
+        const table = document.createElement('table');
         results.forEach(function(result) {
             const tr = document.createElement('tr');
+            const td = document.createElement('td');
             const link = document.createElement('a');
             
-            // On vérifie le type de l'élément pour déterminer l'URL de la page de détail
-            // Vérifie la table d'origine pour déterminer le type de l'élément
             const baseUrl = result.type === 'Film' ? 'filmsdetails.php' : 'seriesdetails.php';
             
-            // On ajoute le titre de l'élément dans la balise <a>
-            link.textContent = result.titre;
+            link.textContent = escapeHtml(result.titre);
+            link.href = baseUrl + '?id=' + encodeURIComponent(result.id);
             
-            // On ajoute l'URL de la page de détail avec l'ID de l'élément
-            link.href = baseUrl + '?id=' + result.id;
-            tr.appendChild(link);
+            td.appendChild(link);
+            tr.appendChild(td);
             table.appendChild(tr);
         });
+        searchResultsHomePage.appendChild(table);
     } else {
         const p = document.createElement('p');
         p.textContent = 'Aucun résultat trouvé.';
         searchResultsHomePage.appendChild(p);
     }
-    searchResultsHomePage.appendChild(table);
 }
