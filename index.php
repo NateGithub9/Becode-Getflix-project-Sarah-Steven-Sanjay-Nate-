@@ -72,7 +72,7 @@
         </div>
         <div class="searchbar">
             <form class="form-inline justify-content-center mt-4">
-                <input class="form-control mr-2" id="searchInputHomePage" type="search" placeholder="Recherchez votre film, série,...">
+                <i class="bi bi-search"></i><input class="form-control mr-2 " id="searchInputHomePage" type="search" placeholder="Recherchez votre film, série,...">
                 <button class="btn btn-primary" type="submit">Recherche</button>
             </form>
         </div>
