@@ -66,17 +66,25 @@
                         }
                         ?>
                     </select>
-                    <label for="note">Note:</label>
-                    <input type="range" name="note" class="form-control-range note" min="0" max="10" step="1" value="<?php echo isset($_POST['note']) ? $_POST['note'] : '0'; ?>">
-                    <span class="currentNoteValue"><?php echo isset($_POST['note']) ? $_POST['note'] : '0'; ?></span>
+                    <div class="note-container">
+                        <label for="note">Note:</label>
+                        <input type="range" name="note" class="form-control-range note" min="0" max="10" step="1" value="<?php echo isset($_POST['note']) ? $_POST['note'] : '0'; ?>">
+                        <span class="currentNoteValue"><?php echo isset($_POST['note']) ? $_POST['note'] : '0'; ?></span>
+                    </div>
                     <label for="datesortie">Date de sortie:</label>
                     <div class="datesortie">
-                        <label for="datesortiedebut">De:</label>
-                        <input type="date" name="datesortiedebut" class="form-control datesortiedebut" value="<?php echo isset($_POST['datesortiedebut']) ? $_POST['datesortiedebut'] : ''; ?>">
-                        <label for="datesortiefin">À:</label>
-                        <input type="date" name="datesortiefin" class="form-control datesortiefin" value="<?php echo isset($_POST['datesortiefin']) ? $_POST['datesortiefin'] : ''; ?>">
+                        <div class="datesortiedebut">
+                            <label for="datesortiedebut">De:</label>
+                            <input type="date" name="datesortiedebut" class="form-control datesortiedebut" value="<?php echo isset($_POST['datesortiedebut']) ? $_POST['datesortiedebut'] : ''; ?>">
+                        </div>
+                        <div class="datesortiefin">
+                            <label for="datesortiefin">À:</label>
+                            <input type="date" name="datesortiefin" class="form-control datesortiefin" value="<?php echo isset($_POST['datesortiefin']) ? $_POST['datesortiefin'] : ''; ?>">
+                        </div>
                     </div>
-                    <button class="btn btn-primary button-for-filters" type="submit">Recherche</button>
+                    <div class="filtersearchbutton">
+                        <button class="btn btn-primary button-for-filters" type="submit">Recherche</button>
+                    </div>
                 </form>
             </div>
             <div class="col-md-10 listefilms">
