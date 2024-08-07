@@ -2,18 +2,22 @@ body {
     background-color: #111;
     color: #fff;
 }
+
 .navbar {
     margin-bottom: 30px;
 }
+
 .thumbnail {
     padding: 0;
     border-radius: 10px;
+   
     overflow: hidden;
 }
 .thumbnail img {
     width: 100%;
     border-radius: 10px;
 }
+
 .featured {
     background: url('https://via.placeholder.com/1500x500') no-repeat center center;
     background-size: cover;
@@ -29,13 +33,16 @@ body {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     padding-bottom: 20px; /* Ajout pour barre de recherche */
 }
+
 .featured h1 {
     font-size: 4em;
     margin-bottom: 20px; /* Ajout pour barre de recherche */
 }
+
 .vh-100 {
     color: black;
 }
+
 .footer {
     background-color: #222;
     padding: 20px 0;
@@ -59,10 +66,53 @@ body {
 .filters {
     background-color: #f8f9fa;
     color: #111;
+    height: 380px;
+    padding-right: 0px;
+    margin-right: 0px;
+    border-radius: 2%;
 }
 
-.btn-primary {
-    
+.filters-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px; /* Adjust spacing between elements if needed */
+}
+
+.note-container {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+}
+
+.note-container label {
+    margin-right: 0px;
+}
+
+.form-inline .form-control-range {
+    width: 60%;
+}
+
+.datesortiedebut {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    margin-bottom: 2%;
+}
+
+.datesortiefin {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    margin-bottom: 2%;
+}
+
+.filtersearchbutton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
 }
 
 .card-title {

@@ -153,7 +153,6 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                     <!-- AJOUT LISTE/B.A -->
                     <div class="boutons">
                         <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItem()">Ajouter à ma liste</button>
-                        <a href="trailer.php" class="btn btn-secondary">Voir la bande-annonce</a>
                     </div>
                 </div>
             </div>
