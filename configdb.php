@@ -1,25 +1,18 @@
-<?php 
-// Définition des constantes pour la connexion à la base de données
-// dbhost : nom d'hôte du serveur MySQL
-// dbuser : nom d'utilisateur à utiliser pour la connexion à la base de données
-// dbpass : mot de passe à utiliser pour la connexion à la base de données
-// dbname : nom de la base de données à utiliser
+<?php
+   // Récupérer l'URL de la base de données depuis les variables d'environnement
+   $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+   $cleardb_server = $cleardb_url["host"];
+   $cleardb_username = $cleardb_url["user"];
+   $cleardb_password = $cleardb_url["pass"];
+   $cleardb_db = substr($cleardb_url["path"],1);
 
-const dbhost = "db"; // nom d'hôte du serveur MySQL
-const dbuser = "test"; // nom d'utilisateur à utiliser pour la connexion à la base de données
-const dbpass = "pass"; // mot de passe à utiliser pour la connexion à la base de données
-const dbname = "GetflixDB"; // nom de la base de données à utiliser
+   // Connexion à la base de données
+   try {
+       $db = new PDO("mysql:host=$cleardb_server;dbname=$cleardb_db", $cleardb_username, $cleardb_password);
+       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   } catch(PDOException $e) {
+       echo "Erreur de connexion : " . $e->getMessage();
+       die();
+   }
 
-// Création de la chaîne de connexion à la base de données
-$dsn = "mysql:host=" . dbhost . ";dbname=" . dbname . ";charset=utf8";
-
-// Tentative de connexion à la base de données
-try {
-    $db = new PDO($dsn, dbuser, dbpass);
-
-} 
-catch (PDOException $exception) {
-    // Si une erreur se produit lors de la connexion à la base de données, l'erreur est affichée et le programme s'arrête
-    echo $exception->getMessage();
-    die;
-}
+?>
