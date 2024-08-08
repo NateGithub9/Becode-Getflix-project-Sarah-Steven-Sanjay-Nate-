@@ -10,6 +10,7 @@ body {
 .thumbnail {
     padding: 0;
     border-radius: 10px;
+   
     overflow: hidden;
 }
 
@@ -37,12 +38,6 @@ body {
 .featured h1 {
     font-size: 4em;
     margin-bottom: 20px; /* Ajout pour barre de recherche */
-}
-
-.w-100 {
-    width: 1500px;
-    height: 500px;
-    border-radius: 10px;
 }
 
 .vh-100 {
@@ -76,20 +71,27 @@ body {
 .filters {
     background-color: #fac57a;
     color: #111;
-    height: 40%;
+    height: 380px;
     padding-right: 0px;
-    padding-bottom: 1%;
     margin-right: 0px;
     border-radius: 2%;
 }
 
+.sections {
+    background-color: #fac57a;
+    color: #111;
+    height: 380px;
+    padding-right: 0px;
+    margin-right: 0px;
+    border-radius: 2%;
+}
 
 .filters-form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 10px; 
+    gap: 10px; /* Adjust spacing between elements if needed */
 }
 
 .note-container {
@@ -129,6 +131,19 @@ body {
 
 .card-title {
     color:black;
+}
+
+/* Styles pour les boutons */
+.boutons {
+    display: flex;
+    gap: 10px; 
+    margin-top: auto;
+}
+
+.boutons button,
+.boutons a {
+    flex: 1;
+    text-align: center;
 }
 
 #searchResults {
@@ -208,8 +223,7 @@ table tr {
 #show-more-button {
     display: flex;
     align-content: center;
-    justify-content: center;
-    margin-top: 2%;
+    
 }
 
 #searchInputHomePage {
@@ -223,5 +237,6 @@ table tr {
 #searchInputSeries {
     margin-left: 1%;
 }
+
 
 
