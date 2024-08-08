@@ -34,15 +34,77 @@
             </ul>
         </div>
     </nav>
-    <div class="maliste">
-        <h1>Ma Liste</h1>
-        
-    </div>
-    <div class="search">
-        <form class="form-inline justify-content-center mt-4">
-            <input class="form-control mr-2" type="search" placeholder="Recherchez votre film, série,...">
-            <button class="btn btn-primary" type="submit">Recherche</button>
-        </form>
+    <div class="container-fluid">
+        <div class="col-md-12 userdetails">
+            <h2>Mes informations</h2>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="profil.php">Mes informations personnelles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="maliste.php">Ma liste</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="mycomments.php">Mes commentaires</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 filters">
+                <h2>Filtres</h2>
+                <form class="form-inline filters-form" method="POST">
+                    <label for="tri">Trier par:</label>
+                    <select name="tri" id="tri" class="form-control">
+                        <option value="" <?php echo (!isset($_POST['tri']) || $_POST['tri'] == "") ? 'selected' : ''; ?>>Trier par</option>
+                        <option value="notedesc" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "notedesc") ? 'selected' : ''; ?>>Note (Décroissant)</option>
+                        <option value="note" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "note") ? 'selected' : ''; ?>>Note (Croissant)</option>
+                        <option value="datedesc" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "datedesc") ? 'selected' : ''; ?>>Date (+ ancien)</option>
+                        <option value="date" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "date") ? 'selected' : ''; ?>>Date (+ récent)</option>
+                        <option value="titredesc" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "titredesc") ? 'selected' : ''; ?>>Titre (de Z à A)</option>
+                        <option value="titre" <?php echo (isset($_POST['tri']) && $_POST['tri'] == "titre") ? 'selected' : ''; ?>>Titre (de A à Z)</option>
+                    </select>
+                    <label for="langue">Langue originale:</label>
+                    <select name="langue" id="langue" class="form-control">
+                        <option value="" <?php if (!isset($_POST['langue']) || $_POST['langue'] == "") echo "selected"; ?>>Toutes les langues</option>
+                        <?php
+                        include_once('./getlanguages.php');
+                        if (isset($_POST['langue'])) {
+                            $selectedLangue = $_POST['langue'];
+                            echo "<script>document.getElementById('langue').value = '$selectedLangue';</script>";
+                        }
+                        ?>
+                    </select>
+                    <div class="note-container">
+                        <label for="note">Note:</label>
+                        <input type="range" name="note" class="form-control-range note" min="0" max="10" step="1" value="<?php echo isset($_POST['note']) ? $_POST['note'] : '0'; ?>">
+                        <span class="currentNoteValue"><?php echo isset($_POST['note']) ? $_POST['note'] : '0'; ?></span>
+                    </div>
+                    <label for="datesortie">Date de sortie:</label>
+                    <div class="datesortie">
+                        <div class="datesortiedebut">
+                            <label for="datesortiedebut">De:</label>
+                            <input type="date" name="datesortiedebut" class="form-control datesortiedebut" value="<?php echo isset($_POST['datesortiedebut']) ? $_POST['datesortiedebut'] : ''; ?>">
+                        </div>
+                        <div class="datesortiefin">
+                            <label for="datesortiefin">À:</label>
+                            <input type="date" name="datesortiefin" class="form-control datesortiefin" value="<?php echo isset($_POST['datesortiefin']) ? $_POST['datesortiefin'] : ''; ?>">
+                        </div>
+                    </div>
+                    <div class="filtersearchbutton">
+                        <button class="btn btn-primary button-for-filters" type="submit">Recherche</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-10">
+
+            </div>
+        </div>
+        <div id="show-more-button">
+            <button class="btn btn-primary" type="submit" onclick="loadMoreItems('films')">Afficher plus de films</button>
+        </div>
     </div>
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
