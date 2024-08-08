@@ -10,12 +10,13 @@ body {
     border-radius: 10px;
     overflow: hidden;
 }
+
 .thumbnail img {
     width: 100%;
     border-radius: 10px;
 }
 .featured {
-    background: url('https://via.placeholder.com/1500x500') no-repeat center center;
+    background: no-repeat center center;
     background-size: cover;
     height: 500px;
     border-radius: 10px;
@@ -33,6 +34,7 @@ body {
     font-size: 4em;
     margin-bottom: 20px; /* Ajout pour barre de recherche */
 }
+
 .vh-100 {
     color: black;
 }
@@ -59,10 +61,62 @@ body {
 .filters {
     background-color: #f8f9fa;
     color: #111;
+    height: 380px;
+    padding-right: 0px;
+    margin-right: 0px;
+    border-radius: 2%;
 }
 
-.btn-primary {
-    
+.sections {
+    background-color: #fac57a;
+    color: #111;
+    height: 380px;
+    padding-right: 0px;
+    margin-right: 0px;
+    border-radius: 2%;
+}
+
+.filters-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px; /* Adjust spacing between elements if needed */
+}
+
+.note-container {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+}
+
+.note-container label {
+    margin-right: 0px;
+}
+
+.form-inline .form-control-range {
+    width: 60%;
+}
+
+.datesortiedebut {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    margin-bottom: 2%;
+}
+
+.datesortiefin {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    margin-bottom: 2%;
+}
+
+.filtersearchbutton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
 }
 
 .card-title {
@@ -86,6 +140,64 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    position: sticky;
+    justify-content: center;
+    align-content: center;
+    position: absolute;
+    top: 100%;
+    width: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 999;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#searchResultsHomePage {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center; 
+    position: absolute;
+    top: 100%;
+    width: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 999;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.searchbar {
+    position: relative;
+}
+
+.searchbarseries {
+    position: relative;
+}
+
+.searchbarfilms {
+    position: relative;
+}
+
+#searchResultsSeries {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    position: absolute;
+    top: 100%;
+    width: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 999;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 table tr {
@@ -97,6 +209,24 @@ table tr {
   table tr:hover {
     background-color: #e6e6e6;
   }
+
+#show-more-button {
+    display: flex;
+    align-content: center;
+    
+}
+
+#searchInputHomePage {
+    margin-left: 1%;
+}
+
+#searchInput {
+    margin-left: 1%;
+}
+
+#searchInputSeries {
+    margin-left: 1%;
+}
 
 
 

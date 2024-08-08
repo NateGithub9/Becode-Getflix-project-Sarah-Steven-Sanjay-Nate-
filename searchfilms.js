@@ -1,9 +1,24 @@
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+}
 
-// C'est le code pour faire une recherche pour les films
+// Fonction de debounce pour limiter le nombre de requêtes
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
-// On récupère les éléments de l'interface utilisateur qui sont nécessaires pour la recherche
-// - searchInput : l'input de recherche
-// - searchResults : l'endroit où seront affichés les résultats
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 
@@ -61,7 +76,7 @@ function displayFilmsResults(results) {
         searchResults.appendChild(p);
     }
 
-    // On ajoute la table à l'élément searchResults afin d'afficher les résultats
+    console.log(table);
     searchResults.appendChild(table);
 }
 
