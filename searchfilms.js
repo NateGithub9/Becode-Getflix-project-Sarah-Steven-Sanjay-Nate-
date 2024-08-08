@@ -1,24 +1,3 @@
-function escapeHtml(unsafe) {
-    return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-}
-
-// Fonction de debounce pour limiter le nombre de requêtes
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 
@@ -60,6 +39,5 @@ function displayFilmsResults(results) {
         searchResults.appendChild(p);
     }
 
-    console.log(table);
     searchResults.appendChild(table);
 }
