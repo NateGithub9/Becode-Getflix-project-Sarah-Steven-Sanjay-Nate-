@@ -49,7 +49,7 @@ function displayFilmsResults(results) {
         results.forEach(function(result) {
             const tr = document.createElement('tr');
             const link = document.createElement('a');
-            link.textContent = escapeHtml(result.titre);
+            link.textContent = result.titre;
             link.href = 'filmsdetails.php?id=' + encodeURIComponent(result.id);
             tr.appendChild(link);
             table.appendChild(tr);
