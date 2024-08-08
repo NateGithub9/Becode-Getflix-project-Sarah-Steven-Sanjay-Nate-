@@ -44,7 +44,7 @@
         <div id="featuredCarousel" class="carousel slide featured" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="First slide">
+                    <img src="images\carouselmontage.png" class="d-block w-100" alt="First slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
                         
 
@@ -70,12 +70,15 @@
         <div class="searchbar">
             <form class="form-inline justify-content-center mt-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                 </svg>
-                <input class="form-control mr-2" id="searchInputHomePage" type="search" placeholder="Recherchez votre film, série,...">
+                <div class="search-container">
+                    <input class="form-control mr-2" id="searchInputHomePage" type="search" placeholder="Recherchez votre film, série,...">
+                    <div id="searchResultsHomePage"></div>
+                </div>
             </form>
         </div>
-        <div id="searchResultsHomePage">
+        <div id="searchResultsHomePage" class="search-results-container">
 
         </div>
         <h2>Populaires</h2>
