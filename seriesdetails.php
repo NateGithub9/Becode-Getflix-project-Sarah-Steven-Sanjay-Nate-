@@ -1,10 +1,17 @@
 <?php
+session_start();
 // Inclusion du fichier de configuration de la base de données et de l'accès au token
 include_once('./configdb.php');
 include_once('./accestoken.php');
 
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Récupération de l'id de la série à partir de l'URL
 $idSerie = $_GET['id'] ?? null;
+$_SESSION['itemID'] = $idSerie;
+$_SESSION['itemType'] = 'serie';
 
 // Requête SQL pour récupérer les informations de la série à partir de la base de données
 $stmt = $db->prepare('SELECT * FROM series WHERE id = :id');
@@ -171,17 +178,18 @@ if ($key !== null) {
             <div class="col-12">
                 <div class="section-commentaires">
                     <h3>Laisser un commentaire:</h3>
-                        <form action="/submit-comment" method="POST">
-                            <label for="comment"></label><br>
-                            <textarea id="comment" name="comment" rows="4" cols="100" required></textarea><br><br>
-                            <input type="submit" value="Commenter">
-                        </form>
+                    <form action="./addcomments.php" method="POST" name="commentform">
+                        <label for="comment">Votre commentaire :</label><br>
+                        <textarea id="comment" name="comment" rows="4" cols="100" required maxlength="1000"></textarea><br><br>
+                        <!-- Token CSRF pour la sécurité du formulaire -->
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="submit" value="Commenter" name="submit">
+                    </form>
                     <br>
-                    
                     <h3>Commentaires</h3>
-                    <p>
-                        
-                    </p>
+                    <?php
+                    include './displaycomments.php';
+                    ?>
                 </div>
             </div>
         </div>
