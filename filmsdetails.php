@@ -179,19 +179,6 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
         </div>
     </div>
 
-    <!-- Fenêtre pop-up -->
-    <div id="trailerPopup" class="popup">
-        <div class="popup-content">
-            <span id="closePopup" class="close">&times;</span>
-            <!-- Conteneur de la vidéo -->
-            <div id="trailerContainer">
-                <video id="trailerVideo" controls>
-                    <source src="URL_DE_TON_TRAILER" type="video/mp4">
-                    Votre navigateur ne supporte pas les vidéos.
-                </video>
-            </div>
-        </div>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

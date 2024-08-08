@@ -1,12 +1,61 @@
 <?php
+session_start();
 
+// Connexion à la base de données
+$servername = "db"; // Nom du service Docker pour la base de données
+$username_db = "test";
+$password_db = "pass";
+$dbname = "GetflixDB";
 
+$conn = new mysqli($servername, $username_db, $password_db, $dbname);
+
+// Vérifier la connexion
+if ($conn->connect_error) {
+    die("Connexion échouée: " . $conn->connect_error);
+}
+
+// Vérification que le formulaire a été soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Récupérer les données du formulaire
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    // Préparation de la requête pour récupérer l'utilisateur
+    $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    // Vérification que l'utilisateur existe
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $username, $hashed_password);
+        $stmt->fetch();
+
+        // Vérification du mot de passe
+        if (password_verify($password, $hashed_password)) {
+            $_SESSION['user_id'] = $id;
+            $_SESSION['username'] = $username;
+            $_SESSION['success'] = "Connexion réussie !";
+            header("Location: index.php");
+            exit();
+        } else {
+            $_SESSION['error'] = "Mot de passe incorrect.";
+        }
+    } else {
+        $_SESSION['error'] = "Aucun compte trouvé avec cette adresse email.";
+    }
+
+    // Fermer la requête et la connexion
+    $stmt->close();
+    $conn->close();
+} else {
+    $_SESSION['error'] = "Accès non autorisé.";
+}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +63,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -52,27 +100,38 @@
 
                             <h3 class="mb-5">Connecte-toi</h3>
 
-                            <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeEmailX-2">E-mail</label>
-                            </div>
+                            <?php
+                            if (isset($_SESSION['error'])) {
+                                echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+                                unset($_SESSION['error']);
+                            }
 
-                            <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="password" id="typePasswordX-2" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX-2">Mot de passe</label>
-                            </div>
+                            if (isset($_SESSION['success'])) {
+                                echo '<div class="alert alert-success">' . $_SESSION['success'] . '</div>';
+                                unset($_SESSION['success']);
+                            }
+                            ?>
 
-                            <div class="form-check d-flex justify-content-start mb-4">
-                                <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
-                                <label class="form-check-label" for="form1Example3"> Se rappeler du mot de passe </label>
-                            </div>
+                            <form method="POST" action="">
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="email" id="typeEmailX-2" name="email" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="typeEmailX-2">E-mail</label>
+                                </div>
 
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Connexion</button>
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="password" id="typePasswordX-2" name="password" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="typePasswordX-2">Mot de passe</label>
+                                </div>
+
+                                <div class="form-check d-flex justify-content-start mb-4">
+                                    <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
+                                    <label class="form-check-label" for="form1Example3"> Se rappeler du mot de passe </label>
+                                </div>
+
+                                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Connexion</button>
+                            </form>
 
                             <hr class="my-4">
-
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;" type="submit"><i class="fab fa-google me-2"></i> Se connecter avec Google</button>
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;" type="submit"><i class="fab fa-facebook-f me-2"></i>Se connecter avec Facebook</button>
 
                             <!-- Bouton Inscription -->
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-secondary mt-2" style="background-color: #6c757d;" onclick="window.location.href='formulaireinscription.php'">Créer un compte</button>

@@ -1,5 +1,14 @@
 <?php
-    include_once('./configdb.php');
+session_start();
+include_once('./configdb.php');
+
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['user_id'])) {
+    $username = htmlspecialchars($_SESSION['username']);
+    $connected = true;
+} else {
+    $connected = false;
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,14 +58,12 @@
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="First slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
                         <h1>Sélectionnés pour vous</h1>
-
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Second slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
                         <h1>Sélectionnés pour vous</h1>
-                        
                     </div>
                 </div>
             </div>
@@ -100,6 +107,15 @@
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
         <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
     </footer>
+
+    <!-- Inclure le fichier JavaScript externe -->
+    <?php if ($connected): ?>
+        <script>
+            var welcomeMessage = "<?php echo $username; ?>";
+        </script>
+    <?php endif; ?>
+    <script src="welcome.js"></script>
+
     <script src="./searchall.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
