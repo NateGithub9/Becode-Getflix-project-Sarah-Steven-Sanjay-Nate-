@@ -224,4 +224,12 @@ table tr {
     margin-left: 1%;
 }
 
-
+.text-center {
+    background-color: #fac57a;
+    border-radius: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2%;
+}
