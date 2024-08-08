@@ -38,7 +38,7 @@
 
     <div class="container mt-5">
         <h2 class="text-center">Inscription</h2>
-        <form action="inscription.php" method="POST">
+        <form action="traitement.php" method="POST">
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Entrez votre nom d'utilisateur" required>
@@ -50,6 +50,10 @@
             <div class="form-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirmez le mot de passe</label>
+                <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirmez votre mot de passe" required>
             </div>
             <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="terms" required>
@@ -68,5 +72,4 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

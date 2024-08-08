@@ -33,25 +33,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Vérification du mot de passe
         if (password_verify($password, $hashed_password)) {
+            // Stocker les informations de l'utilisateur dans la session
             $_SESSION['user_id'] = $id;
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "Connexion réussie !";
-            header("Location: index.php");
+
+            // Rediriger vers index.php avec un paramètre pour afficher un message pop-up
+            header("Location: index.php?login=success");
             exit();
         } else {
             $_SESSION['error'] = "Mot de passe incorrect.";
+            // Rediriger vers la même page avec une erreur
+            header("Location: profil.php?login=failed");
+            exit();
         }
     } else {
         $_SESSION['error'] = "Aucun compte trouvé avec cette adresse email.";
+        // Rediriger vers la même page avec une erreur
+        header("Location: profil.php?login=failed");
+        exit();
     }
 
     // Fermer la requête et la connexion
     $stmt->close();
     $conn->close();
-} else {
-    $_SESSION['error'] = "Accès non autorisé.";
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -59,15 +65,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Website</title>
+    <title>Getflix - Connexion</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script>
+        window.onload = function() {
+            <?php if (isset($_GET['login']) && $_GET['login'] == 'failed'): ?>
+                alert("L'authentification a échoué. Veuillez vérifier votre email et votre mot de passe.");
+            <?php endif; ?>
+        };
+    </script>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <a href="index.php"><img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
+        <a href="index.php"><img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -81,9 +94,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="series.php">Séries</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="maliste.php">Ma Liste</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
@@ -113,12 +123,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             ?>
 
                             <form method="POST" action="">
-                                <div data-mdb-input-init class="form-outline mb-4">
+                                <div class="form-outline mb-4">
                                     <input type="email" id="typeEmailX-2" name="email" class="form-control form-control-lg" required />
                                     <label class="form-label" for="typeEmailX-2">E-mail</label>
                                 </div>
 
-                                <div data-mdb-input-init class="form-outline mb-4">
+                                <div class="form-outline mb-4">
                                     <input type="password" id="typePasswordX-2" name="password" class="form-control form-control-lg" required />
                                     <label class="form-label" for="typePasswordX-2">Mot de passe</label>
                                 </div>
@@ -128,13 +138,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <label class="form-check-label" for="form1Example3"> Se rappeler du mot de passe </label>
                                 </div>
 
-                                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Connexion</button>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Connexion</button>
                             </form>
 
                             <hr class="my-4">
 
                             <!-- Bouton Inscription -->
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-secondary mt-2" style="background-color: #6c757d;" onclick="window.location.href='formulaireinscription.php'">Créer un compte</button>
+                            <button class="btn btn-lg btn-block btn-secondary mt-2" style="background-color: #6c757d;" onclick="window.location.href='formulaireinscription.php'">Créer un compte</button>
 
                         </div>
                     </div>

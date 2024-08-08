@@ -17,16 +17,24 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Website</title>
+    <title>Getflix</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
+    <script>
+        window.onload = function() {
+            <?php if (isset($_GET['login']) && $_GET['login'] == 'success'): ?>
+                alert("Connexion réussie !");
+            <?php endif; ?>
+        };
+    </script>
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <a href="index.php"> <img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
+        <a href="index.php"> <img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,9 +50,6 @@ if (isset($_SESSION['user_id'])) {
                     <a class="nav-link" href="series.php">Séries</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="maliste.php">Ma Liste</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
                 </li>
             </ul>
@@ -57,17 +62,18 @@ if (isset($_SESSION['user_id'])) {
                 <div class="carousel-item active">
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="First slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
-                        <h1>Sélectionnés pour vous</h1>
+                        
+
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Second slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
-                        <h1>Sélectionnés pour vous</h1>
+                        
+                        
                     </div>
                 </div>
             </div>
-            <!-- Ajout du Carrousel -->
             <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
@@ -79,8 +85,10 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="searchbar">
             <form class="form-inline justify-content-center mt-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
                 <input class="form-control mr-2" id="searchInputHomePage" type="search" placeholder="Recherchez votre film, série,...">
-                <button class="btn btn-primary" type="submit">Recherche</button>
             </form>
         </div>
         <div id="searchResultsHomePage">

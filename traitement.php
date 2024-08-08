@@ -1,12 +1,11 @@
 <?php
-// Démarrer une session pour gérer les messages d'erreur ou de succès
 session_start();
 
 // Connexion à la base de données
-$servername = "db"; // Nom du service Docker pour la base de données
-$username_db = "test";
-$password_db = "pass";
-$dbname = "GetflixDB";
+$servername = "db";  // Utilisez 'db' car c'est le nom du service MySQL dans Docker
+$username_db = "test";  // Utilisateur de la base de données
+$password_db = "pass";  // Mot de passe de la base de données
+$dbname = "GetflixDB";  // Nom de la base de données
 
 $conn = new mysqli($servername, $username_db, $password_db, $dbname);
 
@@ -30,6 +29,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    // Vérification de l'existence de l'email dans la base de données
+    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $_SESSION['error'] = "L'adresse email est déjà utilisée.";
+        header("Location: inscription.php");
+        exit();
+    }
+    $stmt->close();
+
     // Hachage du mot de passe pour la sécurité
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -39,18 +50,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Exécuter la requête
     if ($stmt->execute()) {
-        $_SESSION['success'] = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
-        header("Location: connexion.php");
+        $_SESSION['success'] = "Inscription réussie ! Bienvenue, $username.";
+        $_SESSION['user_id'] = $stmt->insert_id; // ID de l'utilisateur nouvellement créé
+        $_SESSION['username'] = $username; // Stocker le nom d'utilisateur dans la session
+        header("Location: profil.php?welcome=1");
+        exit();
     } else {
         $_SESSION['error'] = "Une erreur est survenue lors de l'inscription.";
         header("Location: inscription.php");
+        exit();
     }
 
     // Fermer la requête et la connexion
     $stmt->close();
     $conn->close();
 } else {
-    $_SESSION['error'] = "Accès non autorisé.";
+    // Si la méthode de la requête n'est pas POST, redirigez vers la page d'inscription
     header("Location: inscription.php");
+    exit();
 }
 ?>
