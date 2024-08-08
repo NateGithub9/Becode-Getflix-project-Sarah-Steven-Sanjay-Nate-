@@ -1,16 +1,10 @@
-<?php
-
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Getflix</title>
+    <title>Mes informations personnelles</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -25,8 +19,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="films.php">Films</a>
@@ -34,54 +28,68 @@
                 <li class="nav-item">
                     <a class="nav-link" href="series.php">Séries</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="profil.php">Profil</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="profil.php">Profil <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
     </nav>
-    <section class="vh-100" style="background-color: #111;">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                        <div class="card-body p-5 text-center">
-
-                            <h3 class="mb-5">Connecte-toi</h3>
-
-                            <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeEmailX-2">E-mail</label>
-                            </div>
-
-                            <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="password" id="typePasswordX-2" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX-2">Mot de passe</label>
-                            </div>
-
-                            <div class="form-check d-flex justify-content-start mb-4">
-                                <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
-                                <label class="form-check-label" for="form1Example3"> Se rappeler du mot de passe </label>
-                            </div>
-
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Connexion</button>
-
-                            <hr class="my-4">
-
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;" type="submit"><i class="fab fa-google me-2"></i> Se connecter avec Google</button>
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;" type="submit"><i class="fab fa-facebook-f me-2"></i>Se connecter avec Facebook</button>
-
-                        </div>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <div class="col-md-12 userdetails">
+            <h2>Mes informations</h2>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="profil.php">Mes informations personnelles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="maliste.php">Ma liste</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="mycomments.php">Mes commentaires</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img src="https://via.placeholder.com/250" alt="Avatar" class="rounded-circle img-fluid">
+                <button type="submit" class="btn btn-primary">Changer mon avatar</button>
             </div>
-            <footer class="footer">
-                Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
-                <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
-            </footer>
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <div class="col-md-8">
+                <h3>Mon compte</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="username">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username" placeholder="Username" value="JohnDoe">
+                    </div>                    
+                    <div class="form-group">
+                        <label for="email">Adresse e-mail</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" value="john.doe@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de Passe</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" value="password123">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Changer mes informations</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
+        <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
+    </footer>
+    <script src="./searchfilms.js"></script>
+    <script src="./displaynote.js"></script>
+    <script src="./showmore.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
