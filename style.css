@@ -1,13 +1,16 @@
 body {
-    background-color: #111;
-    color: #fff;
+    background-color: #ffffff;
+    color: #000000;
 }
+
 .navbar {
     margin-bottom: 30px;
 }
+
 .thumbnail {
     padding: 0;
     border-radius: 10px;
+   
     overflow: hidden;
 }
 
@@ -15,6 +18,7 @@ body {
     width: 100%;
     border-radius: 10px;
 }
+
 .featured {
     background: no-repeat center center;
     background-size: cover;
@@ -30,6 +34,7 @@ body {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     padding-bottom: 20px; /* Ajout pour barre de recherche */
 }
+
 .featured h1 {
     font-size: 4em;
     margin-bottom: 20px; /* Ajout pour barre de recherche */
@@ -38,12 +43,17 @@ body {
 .vh-100 {
     color: black;
 }
+
 .footer {
     background-color: #222;
     padding: 20px 0;
     margin-top: 30px;
     text-align: center;
     color:#fff;
+}
+
+.row{
+    margin-top: 2%;
 }
 
 .listefilms {
@@ -59,7 +69,7 @@ body {
 }
 
 .filters {
-    background-color: #f8f9fa;
+    background-color: #fac57a;
     color: #111;
     height: 380px;
     padding-right: 0px;

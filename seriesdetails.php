@@ -67,7 +67,7 @@ if ($key !== null) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Website</title>
+    <title>Détails</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -76,7 +76,7 @@ if ($key !== null) {
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <a href="index.php"><img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
+        <a href="index.php"><img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -90,9 +90,6 @@ if ($key !== null) {
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="series.php">Séries</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="maliste.php">Ma Liste</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
@@ -165,7 +162,6 @@ if ($key !== null) {
                     <!-- AJOUT LISTE/B.A -->
                     <div class="boutons">
                         <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItem()">Ajouter à ma liste</button>
-                        <a href="trailer.php" class="btn btn-secondary">Voir la bande-annonce</a>
                     </div>
                 </div>
             </div>

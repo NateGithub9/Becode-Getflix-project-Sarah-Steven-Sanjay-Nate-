@@ -7,8 +7,7 @@ include_once('./accestoken.php');
 $totalPages = 1;
 
 // URL de base pour la requête
-$baseUrl = "https://api.themoviedb.org/3/discover/tv?language=fr-FR&sort_by=popularity.desc&adult=false&";
-
+$baseUrl = "https://api.themoviedb.org/3/discover/tv?language=fr-FR&sort_by=popularity.desc&include_adult=false";
 
 
 // Effectuer la requête pour chaque page

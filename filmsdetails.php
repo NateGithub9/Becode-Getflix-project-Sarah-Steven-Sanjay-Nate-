@@ -53,7 +53,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiche films/série</title>
+    <title>Détails</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="details.css">
@@ -61,9 +61,9 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <a href="index.php"><img src="images/logo.png" alt="logo" title="logo" width="180" height="39"></a>
+        <a href="index.php"><img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -79,10 +79,10 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                     <a class="nav-link" href="series.php">Séries</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="maliste.php">Ma Liste</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php">Connexion</a>
+                
                 </li>
             </ul>
         </div>
@@ -134,7 +134,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                         <div class="note">
                             <h5>Note (/10) :
                             <?php
-                                echo $result['note'];
+                                echo number_format($result['note'], 1);
                             ?>
                             </h5>
                         </div>
@@ -153,7 +153,6 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                     <!-- AJOUT LISTE/B.A -->
                     <div class="boutons">
                         <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItem()">Ajouter à ma liste</button>
-                        <a href="trailer.php" class="btn btn-secondary">Voir la bande-annonce</a>
                     </div>
                 </div>
             </div>

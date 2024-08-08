@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérification des mots de passe
     if ($password !== $confirm_password) {
         $_SESSION['error'] = "Les mots de passe ne correspondent pas.";
-        header("Location: inscription.php");
+        header("Location: formulaireinscription.php");
         exit();
     }
 
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->store_result();
     if ($stmt->num_rows > 0) {
         $_SESSION['error'] = "L'adresse email est déjà utilisée.";
-        header("Location: inscription.php");
+        header("Location: formulaireinscription.php");
         exit();
     }
     $stmt->close();
@@ -53,11 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['success'] = "Inscription réussie ! Bienvenue, $username.";
         $_SESSION['user_id'] = $stmt->insert_id; // ID de l'utilisateur nouvellement créé
         $_SESSION['username'] = $username; // Stocker le nom d'utilisateur dans la session
-        header("Location: profil.php?welcome=1");
+        header("Location: login.php?welcome=1");
         exit();
     } else {
         $_SESSION['error'] = "Une erreur est survenue lors de l'inscription.";
-        header("Location: inscription.php");
+        header("Location: formulaireinscripton.php");
         exit();
     }
 
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 } else {
     // Si la méthode de la requête n'est pas POST, redirigez vers la page d'inscription
-    header("Location: inscription.php");
+    header("Location: formulaireinscription.php");
     exit();
 }
 ?>

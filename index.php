@@ -21,20 +21,14 @@ if (isset($_SESSION['user_id'])) {
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
-    <script>
-        window.onload = function() {
-            <?php if (isset($_GET['login']) && $_GET['login'] == 'success'): ?>
-                alert("Connexion réussie !");
-            <?php endif; ?>
-        };
-    </script>
+
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
-        <a href="index.php"> <img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
+        <a href="index.php"><img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -49,9 +43,19 @@ if (isset($_SESSION['user_id'])) {
                 <li class="nav-item">
                     <a class="nav-link" href="series.php">Séries</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="profil.php">Profil</a>
-                </li>
+
+                <?php if ($connected): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profil.php">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Déconnexion</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">Connexion</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </nav>
@@ -62,15 +66,13 @@ if (isset($_SESSION['user_id'])) {
                 <div class="carousel-item active">
                     <img src="images\carouselmontage.png" class="d-block w-100" alt="First slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
-                        
-
+                        <!-- Contenu du carrousel -->
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Second slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
-                        
-                        
+                        <!-- Contenu du carrousel -->
                     </div>
                 </div>
             </div>
@@ -94,25 +96,25 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </form>
         </div>
-        <div id="searchResultsHomePage" class="search-results-container">
-
+        <div id="searchResultsHomePage">
+            <!-- Résultats de recherche -->
         </div>
         <h2>Populaires</h2>
-            <?php 
-                $sql = "SELECT * FROM films LIMIT 8";
-                $stmt = $db->prepare($sql);
-                $stmt->execute();
-                $films = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                echo '<div class="row">';
-                foreach ($films as $film) {
-                    echo '<div class="col-md-3 mt-3">';
-                    echo '<div class="thumbnail">';
-                    echo '<a href="filmsdetails.php?id=' . $film['id'] . '"><img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $film['image'] . '" alt="' . $film['titre'] . '"></a>';
-                    echo '</div>';
-                    echo '</div>';  
-                }
+        <?php 
+            $sql = "SELECT * FROM films LIMIT 8";
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            $films = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo '<div class="row">';
+            foreach ($films as $film) {
+                echo '<div class="col-md-3 mt-3">';
+                echo '<div class="thumbnail">';
+                echo '<a href="filmsdetails.php?id=' . $film['id'] . '"><img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/' . $film['image'] . '" alt="' . $film['titre'] . '"></a>';
                 echo '</div>';
-            ?>
+                echo '</div>';  
+            }
+            echo '</div>';
+        ?>
     </div>
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
@@ -120,13 +122,6 @@ if (isset($_SESSION['user_id'])) {
     </footer>
 
     <!-- Inclure le fichier JavaScript externe -->
-    <?php if ($connected): ?>
-        <script>
-            var welcomeMessage = "<?php echo $username; ?>";
-        </script>
-    <?php endif; ?>
-    <script src="welcome.js"></script>
-
     <script src="./searchall.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
