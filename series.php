@@ -19,14 +19,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="films.php">Films</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="series.php">Séries</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="series.php">Séries <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
@@ -37,17 +37,18 @@
     <div class="listeseries1">
         <h1>Liste des séries</h1>
     </div>
-    <div class="search">
+    <div class="searchbarseries">
         <form class="form-inline justify-content-center mt-4">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
             </svg>
-            <input class="form-control mr-2" id="searchInputSeries" type="search" placeholder="Recherchez votre série">
+            <div class="search-container">
+                <input class="form-control mr-2" id="searchInputSeries" type="search" placeholder="Recherchez votre série">
+                <div id="searchResultsSeries"></div>
+            </div>
         </form>
     </div>
-    <div id="searchResultsSeries">
 
-    </div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2 filters">
