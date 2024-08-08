@@ -63,7 +63,7 @@ function displaySeriesResults(results) {
             const tr = document.createElement('tr');
             const td = document.createElement('td');
             const link = document.createElement('a');
-            link.textContent = escapeHtml(result.titre);
+            link.textContent = result.titre;
             link.href = 'seriesdetails.php?id=' + encodeURIComponent(result.id);
             td.appendChild(link);
             tr.appendChild(td);

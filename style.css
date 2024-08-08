@@ -57,6 +57,10 @@ body {
     color:#fff;
 }
 
+.bi-search {
+    margin-right: 7px;
+}
+
 .row{
     margin-top: 2%;
 }
