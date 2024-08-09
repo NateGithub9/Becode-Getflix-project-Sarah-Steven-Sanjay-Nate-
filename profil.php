@@ -1,3 +1,16 @@
+<?php
+session_start();
+include './configdb.php';
+if (isset($_POST['email']) && isset($_POST['password'])) {
+   $sql = "SELECT * FROM users WHERE email = :email AND password = :password"   ;
+   $stmt = $db->prepare($sql);
+   $stmt->bindParam(':email', $_POST['email']);
+   $stmt->bindParam(':password', $_POST['password']);
+   $stmt->execute();
+   $user = $stmt->fetch();
+   $_SESSION['user_id'] = $user['id'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +23,6 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
         <a href="index.php"><img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
@@ -34,6 +46,40 @@
             </ul>
         </div>
     </nav>
+<?php if (!isset($_SESSION['user_id'])) : ?>
+    <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <form action="profil.php" method="post">
+                            <h3 class="mb-5">Connecte-toi</h3>
+
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" name="email" />
+                                <label class="form-label" for="typeEmailX-2">E-mail</label>
+                            </div>
+
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input type="password" id="typePasswordX-2" class="form-control form-control-lg" name="password" />
+                                <label class="form-label" for="typePasswordX-2">Mot de passe</label>
+                            </div>
+
+                            <div class="form-check d-flex justify-content-start mb-4">
+                                <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
+                                <label class="form-check-label" for="form1Example3"> Se rappeler du mot de passe </label>
+                            </div>
+
+                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Connexion</button>
+                            </form>
+                            <button class="btn btn-lg btn-block btn-secondary mt-2" style="background-color: #6c757d;" onclick="window.location.href='formulaireinscription.php'">Créer un compte</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
     <div class="container-fluid">
         <div class="col-md-12 userdetails">
             <h2>Mes informations</h2>
@@ -48,7 +94,7 @@
                         <a class="nav-link" href="mycomments.php">Mes commentaires</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="deconnexion.php">Déconnexion</a>
                     </li>
                 </ul>
         </div>
@@ -79,7 +125,7 @@
             </div>
         </div>
     </div>
-
+<?php endif ?>
     <footer class="footer">
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
         <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
