@@ -2,13 +2,27 @@
 session_start();
 include './configdb.php';
 if (isset($_POST['email']) && isset($_POST['password'])) {
-   $sql = "SELECT * FROM users WHERE email = :email AND password = :password"   ;
-   $stmt = $db->prepare($sql);
-   $stmt->bindParam(':email', $_POST['email']);
-   $stmt->bindParam(':password', $_POST['password']);
-   $stmt->execute();
-   $user = $stmt->fetch();
-   $_SESSION['user_id'] = $user['id'];
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    // Vérification de l'existence de l'email dans la base de données
+    $sql = "SELECT id, password FROM users WHERE email = :email";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($password, $user['password'])) {
+        // Mot de passe correct, démarrer la session utilisateur
+        $_SESSION['user_id'] = $user['id'];
+        header("Location: profil.php");
+        exit();
+    } else {
+        // Mot de passe incorrect ou utilisateur non trouvé
+        $_SESSION['error'] = "Email ou mot de passe incorrect.";
+        header("Location: profil.php");
+        exit();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -52,6 +66,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
+                        <?php
+                        if (isset($_SESSION['error'])) {
+                            echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
+                            unset($_SESSION['error']); // Supprimer le message d'erreur après l'affichage
+                            }
+                            ?>
                             <form action="profil.php" method="post">
                             <h3 class="mb-5">Connecte-toi</h3>
 
