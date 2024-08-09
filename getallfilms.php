@@ -105,16 +105,16 @@ $offset = isset($_POST['offset']) ? (int)$_POST['offset'] : 0;
 //Ajout des filtres à la requête SQL
  switch ($tri) {
    case "note":
-     $sql .= " ORDER BY note DESC";
+     $sql .= " ORDER BY note ASC";
     break;
    case "notedesc":
-     $sql .= " ORDER BY note ASC";
+     $sql .= " ORDER BY note DESC";
      break;
    case "date":
-      $sql .= " ORDER BY datesortie DESC";
+      $sql .= " ORDER BY datesortie ASC";
      break;
    case "datedesc":
-     $sql .= " ORDER BY datesortie ASC";
+     $sql .= " ORDER BY datesortie DESC";
      break;
    case "titre":
     $sql .= " ORDER BY titre ASC";

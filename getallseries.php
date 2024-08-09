@@ -78,11 +78,12 @@ for ($page = 1; $page <= $totalPages; $page++) {
 
 }
 
-
+// Récupération des filtres
 $langue = isset($_POST['langue']) ? $_POST['langue'] : null;
 $note = isset($_POST['note']) ? $_POST['note'] : null;
 $dateDebut = !empty($_POST['datesortiedebut']) ? $_POST['datesortiedebut'] : '';
 $dateFin = !empty($_POST['datesortiefin']) ? $_POST['datesortiefin'] : '';
+$tri = isset($_POST['tri']) ? $_POST['tri'] : null;
 
 // Récupération du LIMIT dynamique
 $limit = isset($_POST['limit']) ? intval($_POST['limit']) : 12;
@@ -105,22 +106,47 @@ if (!empty($dateDebut) && !empty($dateFin)) {
   $sql .= " AND datesortie BETWEEN :datesortiedebut AND :datesortiefin";
 }
 
+//Ajout des filtres à la requête SQL
+switch ($tri) {
+  case "note":
+    $sql .= " ORDER BY note ASC";
+   break;
+  case "notedesc":
+    $sql .= " ORDER BY note DESC";
+    break;
+  case "date":
+     $sql .= " ORDER BY datesortie ASC";
+    break;
+  case "datedesc":
+    $sql .= " ORDER BY datesortie DESC";
+    break;
+  case "titre":
+   $sql .= " ORDER BY titre ASC";
+   break;
+  case "titredesc":
+    $sql .= " ORDER BY titre DESC";
+    break;
+  default:
+    break;
+}
+
+//Ajout de la limite et de l'offset à la requête SQL
 $sql .= " LIMIT :limit OFFSET :offset";
 
 //Préparation de la requête SQL
 $stmt = $db->prepare($sql);
 
 // Si la langue est sélectionnée, on prépare le paramètre de la requête SQL
-if ($langue) {
+if (!empty($langue)) {
   $stmt->bindParam(':langue', $langue, PDO::PARAM_STR);
 }
 
 // Si la note est sélectionnée, on prépare le paramètre de la requête SQL
-if ($note) {
+if (!empty($note)) {
   $stmt->bindParam(':note', $note, PDO::PARAM_INT);
 }
 //Si la date de début et de fin est sélectionnée, on prépare le paramètre de la requête SQL
-if ($dateDebut && $dateFin) {
+if (!empty($dateDebut) && !empty($dateFin)) {
   $stmt->bindParam(':datesortiedebut', $dateDebut, PDO::PARAM_STR);
   $stmt->bindParam(':datesortiefin', $dateFin, PDO::PARAM_STR);
 }
