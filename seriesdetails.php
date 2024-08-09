@@ -14,7 +14,7 @@ $_SESSION['itemID'] = $idSerie;
 $_SESSION['itemType'] = 'serie';
 
 // Requête SQL pour récupérer les informations de la série à partir de la base de données
-$stmt = $db->prepare('SELECT * FROM series WHERE id = :id');
+$stmt = $db->prepare('SELECT *, languages.name AS langue FROM series JOIN languages ON series.langueoriginale = languages.iso WHERE series.id = :id');
 $stmt->execute(['id' => $idSerie]);
 $result = $stmt->fetch();
 
@@ -137,7 +137,7 @@ if ($key !== null) {
                         <div class="language">
                             <h5>Langue originale:
                             <?php
-                                echo $result['langueoriginale'];
+                                echo $result['langue'];
                             ?>
                             </h5>
                         </div>
@@ -178,6 +178,7 @@ if ($key !== null) {
             <div class="col-12">
                 <div class="section-commentaires">
                     <h3>Laisser un commentaire:</h3>
+                    <?php if (isset($_SESSION['user_id'])) : ?>
                     <form action="./addcomments.php" method="POST" name="commentform">
                         <label for="comment">Votre commentaire :</label><br>
                         <textarea id="comment" name="comment" rows="4" cols="100" required maxlength="1000"></textarea><br><br>
@@ -185,6 +186,7 @@ if ($key !== null) {
                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="submit" value="Commenter" name="submit">
                     </form>
+                    <?php endif; ?>
                     <br>
                     <h3>Commentaires</h3>
                     <?php
