@@ -73,7 +73,7 @@ function displayAllResults(results) {
             
             const baseUrl = result.type === 'Film' ? 'filmsdetails.php' : 'seriesdetails.php';
             
-            link.textContent = escapeHtml(result.titre);
+            link.textContent = result.titre;
             link.href = baseUrl + '?id=' + encodeURIComponent(result.id);
             
             td.appendChild(link);
