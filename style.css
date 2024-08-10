@@ -241,10 +241,10 @@ table tr {
 
 .text-center {
     background-color: #fac57a;
-    border-radius: 2%;
+    border-radius: 3%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2%;
+
 }
