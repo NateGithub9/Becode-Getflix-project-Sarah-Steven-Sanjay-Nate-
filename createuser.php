@@ -1,5 +1,7 @@
 <?php
+session_start();
 include 'configdb.php';
+
 // Vérification que le formulaire a été soumis
 if (isset($_POST['submit'])) {
     // Récupérer les données du formulaire
@@ -8,25 +10,67 @@ if (isset($_POST['submit'])) {
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm-password']);
 
-    // Vérification des mots de passe
-    if ($password !== $confirm_password) {
-        // Stocker le message d'erreur dans la session
-        $_SESSION['error'] = 'Les mots de passe ne correspondent pas.';
-        header("Location: formulaireinscription.php");
-        exit();
-    }
 
+    // Vérification longeur et complexité du mot de passe + vérification des deux mots de passe
+    switch(!empty($password)){
+        case strlen($password) < 8: // Vérification de la longueur du mot de passe
+            $_SESSION['error'] = 'Le mot de passe doit contenir au moins 8 caractères.';
+            header("Location: formulaireinscription.php");
+            exit();
+            break;
+        case !preg_match('/[A-Z]/', $password): // Vérification de la présence d'une lettre majuscule
+            $_SESSION['error'] = 'Le mot de passe doit contenir au moins une lettre majuscule.';
+            header("Location: formulaireinscription.php");
+            exit();
+            break;
+        case !preg_match('/[0-9]/', $password): // Vérification de la présence d'un chiffre
+            $_SESSION['error'] = 'Le mot de passe doit contenir au moins un chiffre.';
+            header("Location: formulaireinscription.php");
+            exit();
+            break;
+        case !preg_match("/^[a-zA-Z0-9_\-]+$/", $password):
+            $_SESSION['error'] = 'Le mot de passe ne doit contenir que des lettres, des chiffres, des tirets et des underscores.';
+            header("Location: formulaireinscription.php");
+            exit();
+            break;
+        case $password !== $confirm_password: // Vérification des deux mots de passe
+            $_SESSION['error'] = 'Les mots de passe ne correspondent pas.';
+            header("Location: formulaireinscription.php");
+            exit();
+            break;
+        }
+    
 
-    // Vérification de l'existence de l'email dans la base de données
-    $stmt = $db->prepare("SELECT id FROM users WHERE email = :email");
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-    $stmt->fetch();
-    if ($stmt->rowCount() > 0) {
-        $_SESSION['error'] = "L'adresse email est déjà utilisée.";
-        header("Location: formulaireinscription.php");
-        exit();
-    }
+        // Vérification de l'existence de l'email dans la base de données
+        if(!empty($email)){
+        $stmt = $db->prepare("SELECT id FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($user) {
+            $_SESSION['error'] = 'Adresse email déjà utilisée.';
+            header("Location: formulaireinscription.php");
+            exit();
+            }
+        }
+       // Vérification de l'existence de l'username dans la base de données
+       if(!empty($username)){
+        $stmt = $db->prepare("SELECT id FROM users WHERE username = :username");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($user) {
+            $_SESSION['error'] = "Nom d'utilisateur déjà utilisé.";
+            header("Location: formulaireinscription.php");
+            exit();
+            }
+        // Validation de l'username pour autoriser uniquement les lettres, les chiffres et certains caractères spécifiques
+        if (!preg_match("/^[a-zA-Z0-9_\-]+$/", $username)) {
+            $_SESSION['error'] = 'Username ne doit contenir que des lettres, des chiffres, des tirets et des underscores.';
+            header("Location: formulaireinscription.php");
+            exit();
+            }
+       }
 
     // Hachage du mot de passe pour la sécurité
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);

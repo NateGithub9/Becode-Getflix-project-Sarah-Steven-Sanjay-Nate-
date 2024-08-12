@@ -1,6 +1,10 @@
 body {
     background-color: #ffffff;
     color: #000000;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
 }
 
 .navbar {
@@ -16,6 +20,10 @@ body {
 .thumbnail img {
     width: 100%;
     border-radius: 10px;
+}
+
+.container {
+    flex: 1;
 }
 
 .featured {
@@ -133,6 +141,7 @@ body {
 
 .card-title {
     color:black;
+    height: 30px;
 }
 
 #searchResults {
@@ -141,7 +150,6 @@ body {
     flex-wrap: wrap;
     position: sticky;
     justify-content: center;
-    align-content: center;
     position: absolute;
     top: 100%;
     width: auto;
@@ -158,7 +166,22 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-content: center; 
+    position: absolute;
+    top: 100%;
+    width: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 999;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#searchResultsSeries {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     position: absolute;
     top: 100%;
     width: auto;
@@ -180,23 +203,6 @@ body {
 
 .searchbarfilms {
     position: relative;
-}
-
-#searchResultsSeries {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    position: absolute;
-    top: 100%;
-    width: auto;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 999;
-    max-height: 300px;
-    overflow-y: auto;
 }
 
 table tr {
@@ -230,10 +236,10 @@ table tr {
 
 .text-center {
     background-color: #fac57a;
-    border-radius: 2%;
+    border-radius: 3%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2%;
+
 }
