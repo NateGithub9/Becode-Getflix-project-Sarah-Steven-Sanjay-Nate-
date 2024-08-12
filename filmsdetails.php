@@ -64,7 +64,6 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="details.css">
 </head>
 
@@ -170,12 +169,12 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                 <div class="section-commentaires">
                     <h3>Laisser un commentaire:</h3>
                         <form action="./addcomments.php" method="POST" name="commentform">
-                        <label for="comment">Votre commentaire :</label><br>
-                        <textarea id="comment" name="comment" rows="4" cols="100" required maxlength="1000"></textarea><br><br>
+                            <label for="comment">Votre commentaire :</label><br>
+                            <textarea id="comment" name="comment" rows="4" cols="100" required maxlength="1000"></textarea><br><br>
                         <!-- Token CSRF pour la sécurité du formulaire -->
-                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
-                        <input type="submit" value="Commenter" name="submit">
-                    </form>
+                            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
+                            <input type="submit" value="Commenter" name="submit">
+                        </form>
                     <br>
                 <?php endif; ?>
                     <h3>Commentaires</h3>
