@@ -1,5 +1,6 @@
 <?php
-    include_once('./configdb.php');
+session_start();
+include_once('./configdb.php');
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +38,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
                 </li>
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="deconnexion.php">Déconnexion</a>
+                </li>
+                <?php endif ?>
             </ul>
         </div>
     </nav>
@@ -47,9 +53,7 @@
                 <div class="carousel-item active">
                     <img src="images\carouselmontage.png" class="d-block w-100" alt="First slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
-                        
-
-                    </div>
+                </div>
                 </div>
                 <div class="carousel-item">
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Second slide">

@@ -6,7 +6,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $password = trim($_POST['password']);
 
     // Vérification de l'existence de l'email dans la base de données
-    $sql = "SELECT id, password FROM users WHERE email = :email";
+    $sql = "SELECT id, password, username, email FROM users WHERE email = :email";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->execute();
@@ -24,6 +24,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         exit();
     }
 }
+// Récupérer les informations de l'utilisateur
+$sql = "SELECT * FROM users WHERE id = :id";
+$stmt = $db->prepare($sql);
+$stmt->bindParam(':id', $_SESSION['user_id']);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +37,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes informations personnelles</title>
+    <title><?php if (isset($_SESSION['user_id'])) : echo 'Getflix - Mes informations personnelles'; else : echo 'Getflix - Connexion'; endif; ?></title>
     <link rel="icon" type="image/x-icon" href="images\getflix.ico">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -58,6 +64,11 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 <li class="nav-item active">
                     <a class="nav-link" href="profil.php">Profil <span class="sr-only">(current)</span></a>
                 </li>
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="deconnexion.php">Déconnexion</a>
+                </li>
+                <?php endif ?>
             </ul>
         </div>
     </nav>
@@ -72,6 +83,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                             echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
                             unset($_SESSION['error']); // Supprimer le message d'erreur après l'affichage
                             }
+                            if (isset($_SESSION['success'])) {
+                                echo "<p style='color:green;'>" . $_SESSION['success'] . "</p>";
+                                unset($_SESSION['success']); // Supprimer le message d'erreur après l'affichage
+                            }
                             ?>
                             <form action="profil.php" method="post">
                             <h3 class="mb-5">Connecte-toi</h3>
@@ -85,7 +100,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                                 <input type="password" id="typePasswordX-2" class="form-control form-control-lg" name="password" />
                                 <label class="form-label" for="typePasswordX-2">Mot de passe</label>
                             </div>
-
+                            <!-- <div class="form-outline mb-4">
+                                <a href="updatepw.php">Mot de passe oublié ?</a>
+                            </div> -->
                             <div class="form-check d-flex justify-content-start mb-4">
                                 <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
                                 <label class="form-check-label" for="form1Example3"> Se rappeler du mot de passe </label>
@@ -115,7 +132,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                         <a class="nav-link" href="mycomments.php">Mes commentaires</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="deconnexion.php">Déconnexion</a>
+                        <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
                 </ul>
         </div>
@@ -131,15 +148,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 <form>
                     <div class="form-group">
                         <label for="username">Nom d'utilisateur</label>
-                        <input type="text" class="form-control" id="username" placeholder="Username" value="JohnDoe">
+                        <input type="text" class="form-control" id="username" placeholder="Username" value="<?php echo $user['username']; ?>">
                     </div>                    
                     <div class="form-group">
                         <label for="email">Adresse e-mail</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email" value="john.doe@example.com">
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" value="<?php echo $user['email']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="password">Mot de Passe</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" value="password123">
+                        <a href="updatepw.php">Changer mon mot de passe</a>
                     </div>
                     <button type="submit" class="btn btn-primary">Changer mes informations</button>
                 </form>

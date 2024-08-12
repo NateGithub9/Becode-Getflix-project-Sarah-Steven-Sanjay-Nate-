@@ -62,7 +62,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails</title>
+    <title><?php echo 'Getflix - ' . $result['titre']; ?></title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="details.css">
 </head>
@@ -89,6 +89,11 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                 <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
                 </li>
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="deconnexion.php">Déconnexion</a>
+                </li>
+                <?php endif ?>
             </ul>
         </div>
     </nav>
