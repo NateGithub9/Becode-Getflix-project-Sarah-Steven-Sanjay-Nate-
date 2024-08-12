@@ -30,6 +30,7 @@ Visitors can browse the Getflix library without an account. Upon creating a new 
 - Upload a new profile picture.
 - View and manage all their past comments.
 - Upload a new avatar to personalize their profile further.
+- Change user password.
 
 3. **"Films" pages and "Séries" page**
 
@@ -38,15 +39,12 @@ Users can search and explore the Getflix database for movies and series. The sop
 
 ### Potential new features
 
-1. **Implement Password Recovery System:**
-    - Feature needs to be developed to allow users to recover passwords securely.
-
-2. **Back Office for User and Comment Management (CRUD):**
+1. **Back Office for User and Comment Management (CRUD):**
    - Create an admin dashboard with CRUD functionalities to manage users and comments effectively.
 
-3. **Setup Newsletter Integration with Mailchimp:**
+2. **Setup Newsletter Integration with Mailchimp:**
    - Implement functionality for users to sign up for newsletters.
 
-4. **Optimize:**
+3. **Optimize:**
    - Optimize performance based on testing results.
 
