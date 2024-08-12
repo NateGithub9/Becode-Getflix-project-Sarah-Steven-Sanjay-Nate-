@@ -1,5 +1,6 @@
 <?php
-    include_once('./configdb.php');
+session_start();
+include_once('./configdb.php');
 ?>
 
 <!DOCTYPE html>
@@ -9,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Getflix</title>
+    <link rel="icon" type="image/x-icon" href="images\getflix.ico">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
@@ -36,6 +38,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="profil.php">Profil</a>
                 </li>
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="deconnexion.php">Déconnexion</a>
+                </li>
+                <?php endif ?>
             </ul>
         </div>
     </nav>
@@ -46,9 +53,7 @@
                 <div class="carousel-item active">
                     <img src="images\carouselmontage.png" class="d-block w-100" alt="First slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
-                        
-
-                    </div>
+                </div>
                 </div>
                 <div class="carousel-item">
                     <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Second slide">
