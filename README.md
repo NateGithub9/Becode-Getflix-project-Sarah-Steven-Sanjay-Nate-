@@ -1,41 +1,45 @@
 # Getflix Project Contribution Overview
 
-## What, Why, When, How, Who?
-
 ### Team Members and Their Roles
 
 - **Sanjay (git: Kendrak90)**
-  - **Role:** Front-end / Back-end Developer
-  - **What:** Developed the front-end user interface using HTML, CSS, and JavaScript. Worked on the page that displays the movies, ensuring it is functional and properly designed. Assisted in both front-end and back-end development.
-  - **Why:** To create a user-friendly and visually appealing streaming site, ensuring that users can easily navigate and access movie trailers.
-  - **When:** Worked on front-end components throughout the project duration to finalize by the deadline.
-  - **How:** Utilized frameworks and libraries for efficient coding and collaborated with other team members for seamless integration.
+
+He developed the front-end user interface using HTML, CSS, and JavaScript. Collaborating with Sarah, he focused on key features aimed at providing an engaging and efficient user experience with well-integrated front-end components.
 
 - **Sarah (git: sabbels)**
-  - **Role:** Front-end / Back-end Developer + Project Management with Trello
-  - **What:** Developed the front-end user interface using HTML, CSS, and JavaScript. Assisted in both front-end and back-end development, worked on the section that displays the movies, ensuring it is functional and properly designed. Organized tasks using Trello.
-  - **Why:** To ensure project coordination and assist with coding tasks, improve collaboration, and maintain project focus and deadlines.
-  - **When:** Worked on front-end components throughout the project duration to finalize by the deadline. Continually updated Trello boards and worked on development activities throughout the project timeline.
-  - **How:** Utilized frameworks and libraries for efficient coding and collaborated with other team members for seamless integration, while keeping the team aligned through Trello.
+
+Sarah took on dual roles as both a Front-end and Back-end Developer, leading the project's management using Trello to ensure streamlined progress and task delegation. She was instrumental in crafting the front-end user interface, bringing the platform to life with HTML, CSS, and JavaScript. Sarah collaborated closely with Steven to achieve seamless integration between the front-end and back-end components, focusing specifically on movie and series details, filters, and user dashboard functionalities. She created custom icons and images that enriched the visual appeal and user experience of the platform. Additionally, Sarah ensured that project deadlines were respected, took notes of our daily meetings to maintain clear communication, and utilized modern frameworks and libraries to enhance coding efficiency and maintain high-quality design standards.
 
 - **Steven (git: stevenmottiaux)**
-  - **Role:** Back-end Developer
-  - **What:** Focused on back-end programming, particularly the session system, user roles, and database management. Provided the proper php environment for the team using Docker.
-  - **Why:** To build a secure and functional back-end that supports user interactions with the streaming site, such as registration.
-  - **When:** Developed back-end functionalities as soon as the assigment was given. 
-  - **How:** Used PHP to create server-side applications, employed MySQL for database management, used integrated APIs. Implemented user authentication features and worked on back-end database connections.
+
+As the primary Back-end Developer, Steven played a crucial role in the project. He immediately dove into the core server-side functionalities from the outset, expertly designing and implementing the session management system, user authentication and authorization protocols, roles management logic, comment handling mechanisms, and robust search algorithms with dynamic filtering capabilities. Steven established the containerized development environment using Docker to ensure a consistent configuration across the team. He utilized object-oriented PHP to develop secure and scalable server-side applications and employed MySQL for efficient database operations and optimized query handling. Steven meticulously conducted unit and integration testing to guarantee application functionality and stability, and he added thorough API and system documentation to ensure clarity and ease of future maintenance. His work on secure user authentication flows and reliable database connectivity was critical in ensuring data integrity, security, and system resilience.
 
 - **Nate (git: NateGithub9)**
-  - **Role:** Back-end Developer + Git Master
-  - **What:** Oversaw Git operations, code management, back-end integrations and deployment strategy with Heroku.
-  - **Why:** To maintain code quality and ensure proper version control, helping the team manage branches and facilitate collaboration.
-  - **When:** Actively managed branches and reviews throughout the project, especially during integration phases.
-  - **How:** Implemented code reviews before merges and coordinated pull requests, ensuring that changes were documented and the integration was smooth.
 
-### Pending Things To Do
+As the Back-end Developer and Git Master, Nate managed the project's version control and deployment processes. He expertly coordinated Git operations to ensure efficient code management and smooth integration of back-end functionalities. Nate developed a robust deployment strategy using Heroku, enabling seamless application launches. He played a pivotal role in the local data migration to the ClearDBSQL database, meticulously ensuring data consistency and reliability throughout the transition. Nate was instrumental in establishing the website's secure connection with the database, expertly managing critical components such as login credentials, host configurations, and password encryption. Additionally, he ensured that all sensitive information was properly concealed and protected, maintaining the highest standards of data security. His meticulous approach to code quality assurance was crucial, as he oversaw branch management and conflict resolution, thereby enhancing team collaboration and productivity. Nate’s adept handling of Git workflows ensured an agile and well-organized development process.
+
+### Getflix Features
+
+1. **"Acceuil" page**
+
+Getflix greets users with a succinct overview of the most popular movies. The page includes a functional search bar for easy navigation. The navigation bar allows users to effortlessly explore different sections, including "Movies," "Shows," and the user profile section.
+
+2. **"Profil" page**
+
+Visitors can browse the Getflix library without an account. Upon creating a new account, users gain access to their personalized dashboard, where they can:
+- Upload a new profile picture.
+- View and manage all their past comments.
+- Upload a new avatar to personalize their profile further.
+
+3. **"Films" pages and "Séries" page**
+
+Users can search and explore the Getflix database for movies and series. The sophisticated filtering system allows sorting of videos by title, date, rating, language, and release date. Clicking on a video cover directs the user to a dedicated page providing a brief description of the video and a trailer. Logged-in users have the option to write comments, which appear immediately on the same page, creating an interactive and engaging experience.
+
+
+### Potential new features
 
 1. **Implement Password Recovery System:**
-   - Feature needs to be developed to allow users to recover passwords securely.
+    - Feature needs to be developed to allow users to recover passwords securely.
 
 2. **Back Office for User and Comment Management (CRUD):**
    - Create an admin dashboard with CRUD functionalities to manage users and comments effectively.
