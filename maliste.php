@@ -1,10 +1,13 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Getflix</title>
+    <title>Getflix - Ma liste</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -19,7 +22,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
@@ -29,8 +32,13 @@
                     <a class="nav-link" href="series.php">Séries</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="profil.php">Profil</a>
+                    <a class="nav-link active" href="profil.php">Profil<span class="sr-only">(current)</span></a>
                 </li>
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="deconnexion.php">Déconnexion</a>
+                </li>
+                <?php endif ?>
             </ul>
         </div>
     </nav>

@@ -2,7 +2,7 @@
 session_start();
 // Afficher le message d'erreur s'il existe
 if (isset($_SESSION['error'])) {
-    echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
+    echo "<script>alert('" . $_SESSION['error'] . "');</script>";
     unset($_SESSION['error']); // Supprimer le message d'erreur après l'affichage
 }
 ?>
