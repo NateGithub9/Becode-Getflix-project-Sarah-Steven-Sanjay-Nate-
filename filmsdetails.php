@@ -55,16 +55,16 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo 'Getflix - ' . $result['titre']; ?></title>
+    <title>Détails</title>
+    <link rel="icon" type="image/x-icon" href="images\getflix.ico">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="details.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -162,7 +162,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                     </div>
                     <!-- AJOUT LISTE/B.A -->
                     <div class="boutons">
-                        <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItem()">Ajouter à ma liste</button>
+                        <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItemToMyList()">Ajouter à ma liste</button>
                     </div>
                 </div>
             </div>
@@ -198,6 +198,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="addtolist.js"></script>
 </body>
 
 </html>
