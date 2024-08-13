@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
             header("Location: formulaireinscription.php");
             exit();
             break;
-        case !preg_match("/^[a-zA-Z0-9_\-!@#$%^&*()+=\[\]{};:,.<>\/?|\\\\]+$/", $password):
+        case !preg_match("/^[a-zA-Z0-9_\-!@#$%^&*()+=[\]{};:,.<>\/?|%\\\\]+$/", $password):
             $_SESSION['error'] = 'Le mot de passe ne doit contenir que des lettres, des chiffres, des tirets et des underscores.';
             header("Location: formulaireinscription.php");
             exit();
@@ -65,7 +65,7 @@ if (isset($_POST['submit'])) {
             exit();
         }
         // Validation de l'username pour autoriser les lettres, les chiffres, les tirets, les underscores et certains caractères spéciaux
-        if (!preg_match("/^[a-zA-Z0-9_\-!@#$%^&*()+=\[\]{};:,.<>\/?|\\\\]+$/", $username)) {
+        if (!preg_match("/^[a-zA-Z0-9@_\-]+$/", $password)) {
             $_SESSION['error'] = "Le nom d'utilisateur contient des caractères non autorisés.";
             header("Location: formulaireinscription.php");
             exit();
