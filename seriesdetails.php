@@ -77,7 +77,7 @@ if ($key !== null) {
     <title><?php echo 'Getflix - ' . $result['titre']; ?></title>
     <link rel="icon" type="image/x-icon" href="images\getflix.ico">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="details.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>

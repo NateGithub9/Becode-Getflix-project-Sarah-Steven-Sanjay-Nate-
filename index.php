@@ -56,7 +56,7 @@ include_once('./configdb.php');
                 </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="https://via.placeholder.com/1500x500" class="d-block w-100" alt="Second slide">
+                    <img src="images\carouselmontage1.png" class="d-block w-100" alt="Second slide">
                     <div class="carousel-caption d-flex flex-column justify-content-end align-items-center">
                         
                         
@@ -83,7 +83,7 @@ include_once('./configdb.php');
                 </div>
             </form>
         </div>
-        <div id="searchResultsHomePage" class="search-results-container">
+        <div id="searchResultsHomePage" class="search-results-item">
 
         </div>
         <h2>Populaires</h2>
