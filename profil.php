@@ -131,9 +131,6 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     <li class="nav-item">
                         <a class="nav-link" href="mycomments.php">Mes commentaires</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
                 </ul>
         </div>
     </div>
