@@ -1,70 +1,13 @@
-<?php
-session_start();
-include_once('./configdb.php');
-include_once('./accestoken.php');
-
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-// Récupérer l'id du film à partir de l'URL
-$idFilm = $_GET['id'] ?? null;
-//Récupérer l'id du film à partir de la session
-$_SESSION['idFilm'] = $_GET['id'] ?? null;
-$_SESSION['itemID'] = $idFilm;
-$_SESSION['itemType'] = 'film';
-// Récupérer les informations du film à partir de la base de données
-$stmt = $db->prepare('SELECT  *, languages.name AS langue FROM films JOIN languages ON films.langueoriginale = languages.iso WHERE films.id = :id');
-$stmt->execute(['id' => $idFilm]);
-$result = $stmt->fetch();
-//Récupérer le trailer du film à partir de l'api TMDB
-$url = 'https://api.themoviedb.org/3/movie/' . $result["idexterne"] . '/videos?language=en-US';
-$curl = curl_init();
-
-curl_setopt_array($curl, [
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_HTTPHEADER => [
-        'Authorization: Bearer ' . $token,
-        'Content-Type: application/json',
-        "accept: application/json"
-    ]
-]);
-
-$response2 = curl_exec($curl);
-$err = curl_error($curl);
-curl_close($curl);
-
-$data2 = json_decode($response2, true);
-$results = $data2['results'];
-$key = array_keys(array_filter($results, function ($item) {
-    return $item['type'] === 'Trailer';
-}))[0] ?? null;
-if ($key !== null) {
-    $teaser = $results[$key];
-    $teaserKey = htmlspecialchars($teaser['key'], ENT_QUOTES, 'UTF-8');
-$videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
-} else {
-    // handle the case where no matching element was found
-    // for example, you could throw an exception or log an error
-    $teaser = "Pas de trailer trouvé pour ce film.";
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo 'Getflix - ' . $result['titre']; ?></title>
+    <title>Détails</title>
+    <link rel="icon" type="image/x-icon" href="images\getflix.ico">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="details.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -162,7 +105,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                     </div>
                     <!-- AJOUT LISTE/B.A -->
                     <div class="boutons">
-                        <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItem()">Ajouter à ma liste</button>
+                        <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItemToMyList()">Ajouter à ma liste</button>
                     </div>
                 </div>
             </div>
@@ -198,6 +141,7 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="addtolist.js"></script>
 </body>
 
 </html>

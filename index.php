@@ -83,7 +83,7 @@ include_once('./configdb.php');
                 </div>
             </form>
         </div>
-        <div id="searchResultsHomePage" class="search-results-container">
+        <div id="searchResultsHomePage" class="search-results-item">
 
         </div>
         <h2>Populaires</h2>
