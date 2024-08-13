@@ -1,9 +1,7 @@
 <?php
 session_start();
-// Afficher le message d'erreur s'il existe
 if (isset($_SESSION['error'])) {
-    echo "<script>alert('" . $_SESSION['error'] . "');</script>";
-    unset($_SESSION['error']); // Supprimer le message d'erreur après l'affichage
+    $errorMessage = $_SESSION['error'];
 }
 ?>
 <!DOCTYPE html>
@@ -44,6 +42,12 @@ if (isset($_SESSION['error'])) {
     
     <div class="container mt-5">
         <h2 class="text-center">Inscription</h2>
+        <?php if (isset($_SESSION['error'])) : ?>
+            <?php  
+            echo "<p id='error-message' class='text-danger'>" . $errorMessage . "</p>";
+            unset($_SESSION['error']); 
+            ?>
+        <?php endif; ?>
         <form action="createuser.php" method="POST" name="register">
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>
