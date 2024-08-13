@@ -49,7 +49,6 @@
                         <a class="nav-link active"  aria-current="page" href="mycomments.php">Mes commentaires</a>
                     </li>
                 </ul>
-        
                 <div class="container-fluid1">
                     <div class="row">
 
