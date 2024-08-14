@@ -35,6 +35,35 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Si un formulaire de mise à jour des informations est envoyé
 if (isset($_POST['updateinfos'])) {
+    if (!empty($_POST['username'])) {
+        $stmt = $db->prepare("SELECT id FROM users WHERE username = :username");
+        $stmt->bindParam(':username', $_POST['username']);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($user) { // Si l'username est déjà utilisé
+            $_SESSION['error'] = "Le nom d'utilisateur est déjà utilisé.";
+            header("Location: profil.php");
+            exit();
+        }
+        // Validation de l'username pour autoriser les lettres, les chiffres, les tirets, les underscores et certains caractères spéciaux
+        if (!preg_match("/^[a-zA-Z0-9@_\-]+$/", $_POST['username'])) {
+            $_SESSION['error'] = "Le nom d'utilisateur contient des caractères non autorisés.";
+            header("Location: profil.php");
+            exit();
+        }
+    }
+    // Vérification de l'existence de l'email dans la base de données
+    if (!empty($_POST['email'])) {
+        $stmt = $db->prepare("SELECT id FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $_POST['email']);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($user) { // Si l'email est déjà utilisé
+            $_SESSION['error'] = "L'adresse email est déjà utilisée.";
+            header("Location: profil.php");
+            exit();
+        }
+    }
     // Mettre à jour les informations de l'utilisateur dans la base de données
     $sql = "UPDATE users SET username = :username, email = :email WHERE id = :id";
     $stmt = $db->prepare($sql);
@@ -177,6 +206,15 @@ if (isset($_POST['updateinfos'])) {
                     </button>
                   </div>';
                         unset($_SESSION['success']);
+                    }
+                    if (isset($_SESSION['error'])) {
+                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        ' . htmlspecialchars($_SESSION['error']) . '
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Fermer">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>';
+                        unset($_SESSION['error']);
                     }
                     ?>
                     <h3>Mon compte</h3>
