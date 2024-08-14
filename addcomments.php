@@ -41,7 +41,7 @@ if ($itemType === 'film') {
 $stmt->execute([
     'itemID' => $itemID,
     'comment' => $comment,
-    'user_id' => $user_id
+    'user_id' => $user_id,
 ]);
 
 // Redirection vers la page des détails appropriée

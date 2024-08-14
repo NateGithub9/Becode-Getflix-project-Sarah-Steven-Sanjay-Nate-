@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
             exit();
             break;
         case !preg_match("/^[a-zA-Z0-9_\-!@#$%^&*()+=[\]{};:,.<>\/?|%\\\\]+$/", $password):
-            $_SESSION['error'] = 'Le mot de passe ne doit contenir que des lettres, des chiffres, des tirets et des underscores.';
+            $_SESSION['error'] = 'Le mot de passe contient des caractères non autorisés.';
             header("Location: formulaireinscription.php");
             exit();
             break;
