@@ -8,6 +8,46 @@ $role = $_SESSION['role'];
 $limit = isset($_GET['limit']) ? $_GET['limit'] : 5;
 $offset = isset($_GET['offset']) ? $_GET['offset'] : 5;
 
+// Modifier le statut du commentaire si l'utilisateur est admin et qu'il a envoyé le formulaire de modification -> modération des commentaires
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['changeStatut'])) {
+        // Changement pour un seul commentaire
+        $comment_id = $_POST['comment_id'];
+        $comment_type = $_POST['comment_type'];
+        $new_status = htmlspecialchars(strip_tags($_POST['statut']), ENT_QUOTES, 'UTF-8');
+
+        $table = ($comment_type == 'Film') ? 'filmscomments' : 'seriescomments';
+        $sql = "UPDATE $table SET statut = :statut WHERE id = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':statut', $new_status);
+        $stmt->bindParam(':id', $comment_id);
+        $stmt->execute();
+
+        $_SESSION['message'] = "Le statut du commentaire a été mis à jour avec succès.";
+    } elseif (isset($_POST['update_statuts'])) {
+        // Changement pour plusieurs commentaires
+        if (isset($_POST['statut']) && is_array($_POST['statut'])) {
+            foreach ($_POST['statut'] as $comment_id => $new_status) {
+                $comment_type = $_POST['comment_type'][$comment_id];
+                $new_status = htmlspecialchars(strip_tags($new_status), ENT_QUOTES, 'UTF-8');
+
+                $table = ($comment_type == 'Film') ? 'filmscomments' : 'seriescomments';
+                $sql = "UPDATE $table SET statut = :statut WHERE id = :id";
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':statut', $new_status);
+                $stmt->bindParam(':id', $comment_id);
+                $stmt->execute();
+            }
+            $_SESSION['message'] = "Les statuts ont été mis à jour avec succès.";
+        }
+    }
+
+    header('Location: mycomments.php');
+    exit();
+}
+
+
+
 // Requête SQL pour récupérer les commentaires de l'utilisateur
 // Si l'utilisateur est admin, on récupère tous les commentaires
 if ($role == 'admin') {
@@ -30,22 +70,6 @@ LIMIT :limit OFFSET :offset";
     $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
     $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-// Modifier le statut du commentaire si l'utilisateur est admin et qu'il a envoyé le formulaire de modification -> modération des commentaires
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['changeStatut'])) {
-    $comment_id = $_POST['comment_id'];
-    $comment_type = $_POST['comment_type'];
-    $new_status = htmlspecialchars(strip_tags($_POST['statut']), ENT_QUOTES, 'UTF-8');
-
-
-    $table = ($comment_type == 'Film') ? 'filmscomments' : 'seriescomments';
-    $sql = "UPDATE $table SET statut = :statut WHERE id = :id";
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':statut', $new_status);
-    $stmt->bindParam(':id', $comment_id);
-    $stmt->execute();
-    header('Location: mycomments.php');
-    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -101,45 +125,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['changeStatut'])) {
                         <a class="nav-link" href="maliste.php">Ma liste</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="mycomments.php">Mes commentaires</a>
+                        <a class="nav-link active" aria-current="page" href="mycomments.php"><?php echo $role == 'admin' ? 'Tous les commentaires' : 'Mes commentaires'; ?></a>
                     </li>
                 </ul>
 
                 <div class="container-fluid1">
-                    <table id="commentsTable" class="table table-striped">
-                        <thead>
-                            <?php if ($role == 'admin') : ?>
-                                <th><button class="sort-btn" data-sort="username">Utilisateur</button></th>
-                            <?php endif; ?>
-                            <th><button class="sort-btn" data-sort="date">Date</button></th>
-                            <th><button class="sort-btn" data-sort="type">Type</button></th>
-                            <th><button class="sort-btn" data-sort="titre">Titre</button></th>
-                            <th><button class="sort-btn" data-sort="comment">Commentaire</button></th>
-                            <th>Actions</th>
-                            <th><button class="sort-btn" data-sort="statut">Statut</button></th>
-                        </thead>
-                        <tbody id="commentsTableBody">
-                            <!-- Affichage des commentaires -->
-                            <?php
-                            foreach ($comments as $comment) {
-                                echo "<tr>";
-                                // Affichage de l'utilisateur si l'utilisateur est admin
-                                if ($role == 'admin') {
-                                    echo "<td>" . $comment['username'] . "</td>";
-                                }
-                                // Affichage de la date de création du commentaire
-                                echo "<td>" . date('d-m-Y', strtotime($comment['date_creation'])) . "</td>";
-                                // Affichage du type de commentaire
-                                echo "<td>" . $comment['type'] . "</td>";
-                                // Affichage du titre de la série ou du film
-                                echo "<td>" . $comment['titre'] . "</td>";
-                                // Affichage du commentaire
-                                echo "<td>" . $comment['comment'] . "</td>";
-                                // Affichage du bouton de suppression du commentaire
-                                echo "<td><a href='deletecomment.php?id=" . $comment['id'] . "&type=" . $comment['type'] . "' class='btn btn-danger'>Supprimer</a></td>";
-                                // Affichage du bouton de modification du statut du commentaire si l'utilisateur est admin
-                                if ($role == 'admin') {
-                                    echo "<td>
+                    <?php
+                    // Affichage du message de confirmation
+                    if (isset($_SESSION['message'])) {
+                        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                ' . htmlspecialchars($_SESSION['message']) . '
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Fermer">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>';
+                        unset($_SESSION['message']);
+                    }
+                    ?>
+                    <form method="post" class="bulk-update-form">
+                    <input type="hidden" name="comment_type[<?php echo $comment['id']; ?>]" value="<?php echo $comment['type']; ?>">
+                        <div class="bulk-actions">
+                            <button type="submit" name="update_statuts" class="btn btn-primary">Mettre à jour tous les statuts</button>
+                        </div>
+                        <table id="commentsTable" class="table table-striped">
+                            <thead>
+                                <?php if ($role == 'admin') : ?>
+                                    <th><button class="sort-btn" data-sort="username">Utilisateur</button></th>
+                                <?php endif; ?>
+                                <th><button class="sort-btn" data-sort="date">Date</button></th>
+                                <th><button class="sort-btn" data-sort="type">Type</button></th>
+                                <th><button class="sort-btn" data-sort="titre">Titre</button></th>
+                                <th><button class="sort-btn" data-sort="comment">Commentaire</button></th>
+                                <th>Actions</th>
+                                <th><button class="sort-btn" data-sort="statut">Statut</button></th>
+                            </thead>
+                            <tbody id="commentsTableBody">
+                                <!-- Affichage des commentaires -->
+                                <?php
+                                foreach ($comments as $comment) {
+                                    echo "<tr>";
+                                    // Affichage de l'utilisateur si l'utilisateur est admin
+                                    if ($role == 'admin') {
+                                        echo "<td>" . $comment['username'] . "</td>";
+                                    }
+                                    // Affichage de la date de création du commentaire
+                                    echo "<td>" . date('d-m-Y', strtotime($comment['date_creation'])) . "</td>";
+                                    // Affichage du type de commentaire
+                                    echo "<td>" . $comment['type'] . "</td>";
+                                    // Affichage du titre de la série ou du film
+                                    echo "<td>" . $comment['titre'] . "</td>";
+                                    // Affichage du commentaire
+                                    echo "<td class='comment-text'>" . $comment['comment'] . "</td>";
+                                    // Affichage du bouton de suppression du commentaire
+                                    echo "<td><a href='deletecomment.php?id=" . $comment['id'] . "&type=" . $comment['type'] . "' class='btn btn-danger'>Supprimer</a></td>";
+                                    // Affichage du bouton de modification du statut du commentaire si l'utilisateur est admin
+                                    if ($role == 'admin') {
+                                        echo "<td>
                                 <form method='post' class='status-form'>
                                     <input type='hidden' name='comment_id' value='" . $comment['id'] . "'>
                                     <input type='hidden' name='comment_type' value='" . $comment['type'] . "'>
@@ -149,16 +190,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['changeStatut'])) {
                                         <option " . ($comment['statut'] == 'Refusé' ? 'selected' : '') . " value='Refusé'>Refusé</option>
                                     </select>
                                     <button type='submit' name='changeStatut' class='btn btn-primary btn-sm'>Modifier</button>
-                                </form>
-                            </td>";
-                                } else {
-                                    echo "<td>" . $comment['statut'] . "</td>";
+                                    </form>
+                                            </td>";
+                                    } else {
+                                        echo "<td>" . $comment['statut'] . "</td>";
+                                    }
+                                    echo "</tr>";
                                 }
-                                echo "</tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                ?>
+                            </tbody>
+                        </table>
+                    </form>
                     <div id="show-more-button">
                         <button id="loadMoreComments" class="btn btn-primary" type="submit" onclick="loadMoreComments()">Afficher plus de commentaires</button>
                     </div>

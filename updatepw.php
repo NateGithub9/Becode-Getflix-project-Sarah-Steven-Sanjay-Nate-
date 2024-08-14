@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: updatepw.php");
                     exit();
                     break;
-                case !preg_match("/^[a-zA-Z0-9_\-@]+$/", $newPassword):
-                    $_SESSION['error'] = 'Le mot de passe ne doit contenir que des lettres, des chiffres, des tirets, des underscores et des @.';
+                case !preg_match("/^[a-zA-Z0-9_\-!@#$%^&*()+=[\]{};:,.<>\/?|%\\\\]+$/", $password):
+                    $_SESSION['error'] = 'Le mot de passe contient des caractères non autorisés.';
                     header("Location: updatepw.php");
                     exit();
                     break;
@@ -130,8 +130,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label class="form-label" for="typePasswordX-2">Confirmer le mot de passe</label>
                             </div>
                             <?php if (isset($_SESSION['error'])) : ?>
-                                <p class="text-danger"><?php echo $_SESSION['error']; ?></p>
-                                <?php unset($_SESSION['error']); ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <?php echo htmlspecialchars($_SESSION['error']); ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Fermer">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php unset($_SESSION['error']); ?>
                             <?php endif; ?>
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Changer mon mot de passe</button>
                         </form>

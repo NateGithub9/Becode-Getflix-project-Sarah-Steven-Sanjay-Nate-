@@ -292,3 +292,7 @@ table tr {
 .btn-primary {
     margin-top: 2%;
 }
+
+.comment-text {
+    width: 30%;
+}
