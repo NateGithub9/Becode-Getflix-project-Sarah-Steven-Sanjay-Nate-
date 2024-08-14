@@ -1,11 +1,10 @@
 // La fonction loadMoreItems est une fonction qui permet d'afficher plus de films ou de séries en cliquant sur un bouton
 // Elle utilise fetch pour envoyer une requête POST à l'URL correspondante et récupérer la réponse
 // Elle utilise ensuite innerHTML pour ajouter les nouveaux films ou séries à la liste existante
+let offset = 0;
 
-let limit = 12; // Initialiser le LIMIT
-let offset = 0; // Initialiser l'OFFSET
-
-function loadMoreItems(type) { // Modifier le nom de la fonction et ajouter un paramètre 'type'
+function loadMoreItems(type) {
+  const limit = 12; // Initialiser le LIMIT
   offset += limit; // Augmenter l'OFFSET de la valeur de LIMIT à chaque clic
   const form = document.querySelector('.filters-form'); // Récupérer le formulaire
   const formData = new FormData(form); // Récupérer les données du formulaire

@@ -1,12 +1,13 @@
 <?php
 session_start();
 include './configdb.php';
+// Si un mail et un mot de passe sont envoyés par le formulaire de connexion
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
     // Vérification de l'existence de l'email dans la base de données
-    $sql = "SELECT id, password, username, email FROM users WHERE email = :email";
+    $sql = "SELECT id, password, username, email, role FROM users WHERE email = :email";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->execute();
@@ -15,6 +16,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     if ($user && password_verify($password, $user['password'])) {
         // Mot de passe correct, démarrer la session utilisateur
         $_SESSION['user_id'] = $user['id'];
+        $_SESSION['role'] = $user['role'];
         header("Location: profil.php");
         exit();
     } else {
@@ -31,6 +33,8 @@ $stmt->bindParam(':id', $_SESSION['user_id']);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

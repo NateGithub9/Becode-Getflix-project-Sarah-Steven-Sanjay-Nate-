@@ -53,7 +53,6 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
     // for example, you could throw an exception or log an error
     $teaser = "Pas de trailer trouvé pour ce film.";
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
