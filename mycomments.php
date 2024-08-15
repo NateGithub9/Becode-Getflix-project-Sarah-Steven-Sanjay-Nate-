@@ -5,69 +5,95 @@ include './configdb.php';
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
 // Récupérer le nouveau LIMIT depuis la requête GET
-$limit = isset($_GET['limit']) ? $_GET['limit'] : 5;
-$offset = isset($_GET['offset']) ? $_GET['offset'] : 5;
+$status = isset($_GET['status']) ? $_GET['status'] : 'all';
+$date = isset($_GET['date']) ? $_GET['date'] : '';
 
 // Modifier le statut du commentaire si l'utilisateur est admin et qu'il a envoyé le formulaire de modification -> modération des commentaires
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['changeStatut'])) {
-        // Changement pour un seul commentaire
         $comment_id = $_POST['comment_id'];
         $comment_type = $_POST['comment_type'];
-        $new_status = htmlspecialchars(strip_tags($_POST['statut']), ENT_QUOTES, 'UTF-8');
+
+        if (isset($_POST['statut']) && is_array($_POST['statut'])) {
+            $new_status = htmlspecialchars(strip_tags($_POST['statut'][$comment_id]), ENT_QUOTES, 'UTF-8');
+        } else {
+            $new_status = '';
+        }
+
+        $raison_refus = isset($_POST['raison_refus'][$comment_id]) ? htmlspecialchars(strip_tags($_POST['raison_refus'][$comment_id]), ENT_QUOTES, 'UTF-8') : null;
 
         $table = ($comment_type == 'Film') ? 'filmscomments' : 'seriescomments';
-        $sql = "UPDATE $table SET statut = :statut WHERE id = :id";
+        $sql = "UPDATE $table SET statut = :statut, raison_refus = :raison_refus WHERE id = :id";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':statut', $new_status);
+        $stmt->bindParam(':raison_refus', $raison_refus);
         $stmt->bindParam(':id', $comment_id);
         $stmt->execute();
-
-        $_SESSION['message'] = "Le statut du commentaire a été mis à jour avec succès.";
-    } elseif (isset($_POST['update_statuts'])) {
-        // Changement pour plusieurs commentaires
-        if (isset($_POST['statut']) && is_array($_POST['statut'])) {
-            foreach ($_POST['statut'] as $comment_id => $new_status) {
-                $comment_type = $_POST['comment_type'][$comment_id];
-                $new_status = htmlspecialchars(strip_tags($new_status), ENT_QUOTES, 'UTF-8');
-
-                $table = ($comment_type == 'Film') ? 'filmscomments' : 'seriescomments';
-                $sql = "UPDATE $table SET statut = :statut WHERE id = :id";
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam(':statut', $new_status);
-                $stmt->bindParam(':id', $comment_id);
-                $stmt->execute();
-            }
-            $_SESSION['message'] = "Les statuts ont été mis à jour avec succès.";
-        }
+        $_SESSION['messageupdatestatuts'] = "Le statut du commentaire a été mis à jour avec succès.";
     }
-
     header('Location: mycomments.php');
     exit();
 }
 
-
-
 // Requête SQL pour récupérer les commentaires de l'utilisateur
 // Si l'utilisateur est admin, on récupère tous les commentaires
 if ($role == 'admin') {
-    $sql = "(SELECT seriescomments.id, comment, titre, 'Série' as type, users.username, seriescomments.statut, seriescomments.date_creation FROM seriescomments JOIN series ON seriescomments.idserie = series.id JOIN users ON seriescomments.userid = users.id )
+    $whereClause = "";
+    if ($status != 'all') {
+        $whereClause .= " AND statut = :status";
+    }
+    if (!empty($date)) {
+        $whereClause .= " AND DATE(date_creation) = :date";
+    }
+    $sql = "(SELECT seriescomments.id, comment, titre, 'Série' as type, users.username, seriescomments.statut, seriescomments.date_creation, seriescomments.raison_refus 
+    FROM seriescomments JOIN series ON seriescomments.idserie = series.id 
+    JOIN users ON seriescomments.userid = users.id 
+    $whereClause)
     UNION ALL
-(SELECT filmscomments.id, comment, titre, 'Film' as type, users.username, filmscomments.statut, filmscomments.date_creation FROM filmscomments JOIN films ON filmscomments.idfilm = films.id JOIN users ON filmscomments.userid = users.id)
+(SELECT filmscomments.id, comment, titre, 'Film' as type, users.username, filmscomments.statut, filmscomments.date_creation, filmscomments.raison_refus 
+FROM filmscomments JOIN films ON filmscomments.idfilm = films.id 
+JOIN users ON filmscomments.userid = users.id 
+$whereClause)
 ";
     $stmt = $db->prepare($sql);
+    if ($status != 'all') {
+        $stmt->bindParam(':status', $status);
+    }
+    if (!empty($date)) {
+        $stmt->bindParam(':date', $date);
+    }
     $stmt->execute();
     $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
     // Si l'utilisateur n'est pas admin, on récupère les commentaires de l'utilisateur
-    $sql = "(SELECT seriescomments.id, comment, titre, 'Série' as type, seriescomments.statut, seriescomments.date_creation FROM seriescomments JOIN series ON seriescomments.idserie = series.id WHERE userid = :userId)
+    $whereClause = "WHERE userid = :userId";
+    if ($status != 'all') {
+        $whereClause .= " AND statut = :status";
+    }
+    if (!empty($date)) {
+        $whereClause .= " AND DATE(date_creation) = :date";
+    }
+
+    $sql = "(SELECT seriescomments.id, comment, titre, 'Série' as type, seriescomments.statut, seriescomments.date_creation, seriescomments.raison_refus 
+        FROM seriescomments 
+        JOIN series ON seriescomments.idserie = series.id 
+        $whereClause)
     UNION ALL
-(SELECT filmscomments.id, comment, titre, 'Film' as type, filmscomments.statut, filmscomments.date_creation FROM filmscomments JOIN films ON filmscomments.idfilm = films.id WHERE userid = :userId)
-LIMIT :limit OFFSET :offset";
+    (SELECT filmscomments.id, comment, titre, 'Film' as type, filmscomments.statut, filmscomments.date_creation, filmscomments.raison_refus 
+        FROM filmscomments 
+        JOIN films ON filmscomments.idfilm = films.id 
+        $whereClause)";
+
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':userId', $user_id);
-    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+    if ($status != 'all') {
+        $stmt->bindParam(':status', $status);
+    }
+    if (!empty($date)) {
+        $stmt->bindParam(':date', $date);
+    }
+
     $stmt->execute();
     $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -132,78 +158,91 @@ LIMIT :limit OFFSET :offset";
                 <div class="container-fluid1">
                     <?php
                     // Affichage du message de confirmation
-                    if (isset($_SESSION['message'])) {
+                    if (isset($_SESSION['messageupdatestatuts'])) {
                         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                ' . htmlspecialchars($_SESSION['message']) . '
+                                ' . htmlspecialchars($_SESSION['messageupdatestatuts']) . '
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Fermer">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>';
-                        unset($_SESSION['message']);
+                        unset($_SESSION['messageupdatestatuts']);
                     }
                     ?>
-                    <form method="post" class="bulk-update-form">
-                    <input type="hidden" name="comment_type[<?php echo $comment['id']; ?>]" value="<?php echo $comment['type']; ?>">
-                        <div class="bulk-actions">
-                            <button type="submit" name="update_statuts" class="btn btn-primary">Mettre à jour tous les statuts</button>
-                        </div>
-                        <table id="commentsTable" class="table table-striped">
-                            <thead>
-                                <?php if ($role == 'admin') : ?>
-                                    <th><button class="sort-btn" data-sort="username">Utilisateur</button></th>
-                                <?php endif; ?>
-                                <th><button class="sort-btn" data-sort="date">Date</button></th>
-                                <th><button class="sort-btn" data-sort="type">Type</button></th>
-                                <th><button class="sort-btn" data-sort="titre">Titre</button></th>
-                                <th><button class="sort-btn" data-sort="comment">Commentaire</button></th>
-                                <th>Actions</th>
-                                <th><button class="sort-btn" data-sort="statut">Statut</button></th>
-                            </thead>
-                            <tbody id="commentsTableBody">
-                                <!-- Affichage des commentaires -->
-                                <?php
-                                foreach ($comments as $comment) {
-                                    echo "<tr>";
-                                    // Affichage de l'utilisateur si l'utilisateur est admin
-                                    if ($role == 'admin') {
-                                        echo "<td>" . $comment['username'] . "</td>";
-                                    }
-                                    // Affichage de la date de création du commentaire
-                                    echo "<td>" . date('d-m-Y', strtotime($comment['date_creation'])) . "</td>";
-                                    // Affichage du type de commentaire
-                                    echo "<td>" . $comment['type'] . "</td>";
-                                    // Affichage du titre de la série ou du film
-                                    echo "<td>" . $comment['titre'] . "</td>";
-                                    // Affichage du commentaire
-                                    echo "<td class='comment-text'>" . $comment['comment'] . "</td>";
-                                    // Affichage du bouton de suppression du commentaire
-                                    echo "<td><a href='deletecomment.php?id=" . $comment['id'] . "&type=" . $comment['type'] . "' class='btn btn-danger'>Supprimer</a></td>";
-                                    // Affichage du bouton de modification du statut du commentaire si l'utilisateur est admin
-                                    if ($role == 'admin') {
-                                        echo "<td>
+                    <table id="commentsTable" class="table table-striped">
+                        <thead>
+                            <?php if ($role == 'admin') : ?>
+                                <th><button class="sort-btn" data-sort="username">Utilisateur</button></th>
+                            <?php endif; ?>
+                            <th>
+                                <div class="form-group">
+                                    <label for="dateFilter">Filtrer par date :</label>
+                                    <input type="date" id="dateFilter" class="form-control" name="dateFilter" value="<?php echo $date; ?>">
+                                </div>
+                                <button class="sort-btn" data-sort="date">Trier par date</button>
+                            </th>
+                            <th><button class="sort-btn" data-sort="type">Type</button></th>
+                            <th><button class="sort-btn" data-sort="titre">Titre</button></th>
+                            <th><button class="sort-btn" data-sort="comment">Commentaire</button></th>
+                            <th><button class="sort-btn" data-sort="raison_refus">Modération</button></th>
+                            <th>Actions</th>
+                            <th>
+                                <div class="form-group">
+                                    <label for="statusFilter">Filtrer par statut :</label>
+                                    <select id="statusFilter" class="form-control">
+                                        <option value="all">Tous</option>
+                                        <option value="En attente">En attente</option>
+                                        <option value="Accepté">Accepté</option>
+                                        <option value="Refusé">Refusé</option>
+                                    </select>
+                                </div>
+                            </th>
+                        </thead>
+                        <tbody id="commentsTableBody">
+                            <!-- Affichage des commentaires -->
+                            <?php
+                            foreach ($comments as $comment) {
+                                echo "<tr>";
+                                // Affichage de l'utilisateur si l'utilisateur est admin
+                                if ($role == 'admin') {
+                                    echo "<td>" . $comment['username'] . "</td>";
+                                }
+                                // Affichage de la date de création du commentaire
+                                echo "<td data-date='" . $comment['date_creation'] . "'>" . date('d-m-Y', strtotime($comment['date_creation'])) . "</td>";
+                                // Affichage du type de commentaire
+                                echo "<td>" . $comment['type'] . "</td>";
+                                // Affichage du titre de la série ou du film
+                                echo "<td>" . $comment['titre'] . "</td>";
+                                // Affichage du commentaire
+                                echo "<td class='comment-text'>" . $comment['comment'] . "</td>";
+                                // Affichage de la raison de refus si le commentaire est refusé
+
+                                echo "<td>" . ($comment['statut'] == 'Refusé' ? $comment['raison_refus'] : '') . "</td>";
+
+                                // Affichage du bouton de suppression du commentaire
+                                echo "<td><a href='deletecomment.php?id=" . $comment['id'] . "&type=" . $comment['type'] . "' class='btn btn-danger'>Supprimer</a></td>";
+                                // Affichage du bouton de modification du statut du commentaire si l'utilisateur est admin
+                                if ($role == 'admin') {
+                                    echo "<td>
                                 <form method='post' class='status-form'>
                                     <input type='hidden' name='comment_id' value='" . $comment['id'] . "'>
                                     <input type='hidden' name='comment_type' value='" . $comment['type'] . "'>
-                                    <select name='statut' class='status-select'>
+                                    <select name='statut[" . $comment['id'] . "]' class='status-select'>
                                         <option " . ($comment['statut'] == 'En attente' ? 'selected' : '') . " value='En attente'>En attente</option>
                                         <option " . ($comment['statut'] == 'Accepté' ? 'selected' : '') . " value='Accepté'>Accepté</option>
                                         <option " . ($comment['statut'] == 'Refusé' ? 'selected' : '') . " value='Refusé'>Refusé</option>
                                     </select>
+                                    <textarea name='raison_refus[" . $comment['id'] . "]' class='form-control' placeholder='Raison de refus' value='" . htmlspecialchars($comment['raison_refus']) . "'></textarea>
                                     <button type='submit' name='changeStatut' class='btn btn-primary btn-sm'>Modifier</button>
                                     </form>
                                             </td>";
-                                    } else {
-                                        echo "<td>" . $comment['statut'] . "</td>";
-                                    }
-                                    echo "</tr>";
+                                } else {
+                                    echo "<td>" . $comment['statut'] . "</td>";
                                 }
-                                ?>
-                            </tbody>
-                        </table>
-                    </form>
-                    <div id="show-more-button">
-                        <button id="loadMoreComments" class="btn btn-primary" type="submit" onclick="loadMoreComments()">Afficher plus de commentaires</button>
-                    </div>
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -215,8 +254,8 @@ LIMIT :limit OFFSET :offset";
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="./showmorecomments.js"></script>
     <script src="./sortcomments.js"></script>
+    <script src="./showmorecomments.js"></script>
 </body>
 
 </html>
