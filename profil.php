@@ -135,7 +135,7 @@ if (isset($_POST['updateinfos'])) {
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>';
-                        unset($_SESSION['error']);
+                                unset($_SESSION['error']);
                             }
                             if (isset($_SESSION['success'])) {
                                 echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -193,8 +193,25 @@ if (isset($_POST['updateinfos'])) {
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-4 text-center">
-                    <img src="https://via.placeholder.com/250" alt="Avatar" class="rounded-circle img-fluid">
-                    <button type="submit" class="btn btn-primary">Changer mon avatar</button>
+                    <?php if (isset($_SESSION['messageupdateavatar'])) : ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?php echo htmlspecialchars($_SESSION['messageupdateavatar']); ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Fermer">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <?php unset($_SESSION['messageupdateavatar']); ?>
+                    <?php endif; ?>
+                    <img src="<?php if (isset($user['avatar']) && $user['avatar'] != 'https://via.placeholder.com/250') {
+                                    echo './avatars/' . $user['avatar'];
+                                } else {
+                                    echo 'https://via.placeholder.com/250';
+                                }
+                                ?>" alt="Avatar" class="rounded-circle img-fluid">
+                    <form action="changeavatar.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="avatar" id="avatar">
+                        <button type="submit" class="btn btn-primary">Changer mon avatar</button>
+                    </form>
                 </div>
                 <div class="col-md-8">
                     <?php
@@ -240,9 +257,6 @@ if (isset($_POST['updateinfos'])) {
         Website created by Sarah, Steven, Sanjay & Nate. Check out our source code!
         <a href="https://github.com/NateGithub9/Becode-Getflix-project-Sarah-Steven-Sanjay-Nate-" target="_blank"><img src="images/git.webp" width="50" height="50" alt="github icon"></a>
     </footer>
-    <script src="./searchfilms.js"></script>
-    <script src="./displaynote.js"></script>
-    <script src="./showmore.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
