@@ -81,7 +81,6 @@ if ($key !== null) {
 </head>
 
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"></a>
         <a href="index.php"><img src="images/logoGetflix.png" alt="logo" title="logo" width="180" height="55"></a>
@@ -173,9 +172,11 @@ if ($key !== null) {
                             ?>
                     </div>
                     <!-- AJOUT LISTE/B.A -->
+                    <?php if (isset($_SESSION['user_id'])) { ?>
                     <div class="boutons">
                         <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItem()">Ajouter à ma liste</button>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -210,7 +211,7 @@ if ($key !== null) {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="populatetable.js"></script>
+    <script src="addtolist.js"></script>
 </body>
 
 </html>

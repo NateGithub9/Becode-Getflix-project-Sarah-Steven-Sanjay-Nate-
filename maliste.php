@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma Liste</title>
+    <title>Getflix - Ma Liste</title>
     <link rel="icon" type="image/x-icon" href="images\getflix.ico">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -53,7 +53,7 @@ session_start();
                         <a class="nav-link active" aria-current="page" href="maliste.php">Ma liste</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="mycomments.php">Mes commentaires</a>
+                        <a class="nav-link" href="mycomments.php"><?php echo $_SESSION['role'] == 'admin' ? 'Tous les commentaires' : 'Mes commentaires'; ?></a>
                     </li>
                 </ul>
         </div>
@@ -69,7 +69,7 @@ session_start();
                             <th>Supprimer</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="myListTableBody">
 
                     </tbody>
                 </table>
@@ -84,7 +84,6 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="addtolist.js"></script>
-    <script src="populatetable.js"></script>
 </body>
 
 </html>
