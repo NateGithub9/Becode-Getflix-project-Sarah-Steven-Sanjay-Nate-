@@ -16,10 +16,10 @@ $table = ($itemType === 'film') ? 'filmscomments' : 'seriescomments';
 $idColumn = ($itemType === 'film') ? 'idfilm' : 'idserie';
 
 //Requête SQL pour récupérer les commentaires
-$sql = "SELECT username, comment 
+$sql = "SELECT username, comment, statut
         FROM $table
         JOIN users ON $table.userid = users.id
-        WHERE $idColumn = :itemID";
+        WHERE $idColumn = :itemID AND statut = 'Accepté'" ;
 
 $stmt = $db->prepare($sql);
 //Exécution de la requête avec l'id de l'item
@@ -29,8 +29,12 @@ $comments = $stmt->fetchAll();
 ?>
 
 <?php if (count($comments) > 0) : //Si il y a des commentaires ?> 
-    <?php foreach ($comments as $comment) : //Boucle pour afficher les commentaires ?>
-        <p><?= $comment['username'] ?> a commenté : <?= $comment['comment'] // ?></p>
+    <?php foreach ($comments as $comment) :
+         //Boucle pour afficher les commentaires ?>
+         <?php if ($comment['statut'] == 'Accepté') {
+            echo "<p>" . $comment['username'] . " a commenté : " . $comment['comment'] . "</p>";
+         }
+         ?>
     <?php endforeach; ?>
 <?php else : ?>
     <p>Aucun commentaire pour le moment.</p>
