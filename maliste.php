@@ -69,7 +69,7 @@ session_start();
                             <th>Supprimer</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="myListTableBody">
 
                     </tbody>
                 </table>
@@ -84,7 +84,6 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="addtolist.js"></script>
-    <script src="populatetable.js"></script>
 </body>
 
 </html>
