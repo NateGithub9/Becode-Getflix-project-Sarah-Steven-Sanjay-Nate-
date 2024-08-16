@@ -292,3 +292,13 @@ table tr {
 .btn-primary {
     margin-top: 2%;
 }
+
+.comment-text {
+    width: 30%;
+}
+
+input[name^="raison_refus"] {
+    display: none;
+    margin-left: 10px;
+    width: 200px;
+}

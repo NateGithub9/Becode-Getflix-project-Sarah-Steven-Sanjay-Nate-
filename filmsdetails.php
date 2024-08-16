@@ -53,7 +53,6 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
     // for example, you could throw an exception or log an error
     $teaser = "Pas de trailer trouvé pour ce film.";
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -161,9 +160,11 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                         </div>
                     </div>
                     <!-- AJOUT LISTE/B.A -->
+                    <?php if (isset($_SESSION['user_id'])) { ?>
                     <div class="boutons">
                         <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItemToMyList()">Ajouter à ma liste</button>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
