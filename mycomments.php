@@ -147,9 +147,9 @@ $whereClause)
                     <li class="nav-item">
                         <a class="nav-link" href="profil.php">Mes informations personnelles</a>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link" href="maliste.php">Ma liste</a>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="mycomments.php"><?php echo $role == 'admin' ? 'Tous les commentaires' : 'Mes commentaires'; ?></a>
                     </li>
