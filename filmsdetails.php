@@ -159,11 +159,11 @@ $videoUrl = 'https://www.youtube.com/embed/' . $teaserKey;
                             ?>
                         </div>
                     </div>
-                    <!-- AJOUT LISTE/B.A -->
+                    <!-- AJOUT LISTE/B.A 
                     <?php if (isset($_SESSION['user_id'])) { ?>
                     <div class="boutons">
                         <button type="button" id="addtomylist" class="btn btn-primary" onclick="addItemToMyList()">Ajouter à ma liste</button>
-                    </div>
+                    </div> -->
                     <?php } ?>
                 </div>
             </div>
